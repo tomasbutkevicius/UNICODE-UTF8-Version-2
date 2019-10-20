@@ -16,7 +16,8 @@
 #define UNICODE
 #define _UNICODE
 using namespace std;
-class converter {
+class converter 
+{
 private:
 	int dec;
 	int decimal;
@@ -126,8 +127,6 @@ public:
 			x_vietu = 16 - 5;
 			pildyt_nuliais = x_vietu - binary.length();
 			//uzpildo nuliais vietas iki binary
-
-
 		}
 		else if (decimal <= 65535) //Byte 3
 		{
@@ -209,6 +208,10 @@ public:
 };
 int main()
 {
+	cout << "1)Program takes decimal number and converts to unicode, utf values. Symbol can be seen in symbol.txt file"<<endl;
+	cout << endl;
+	cout << "2)Program takes txt file and converts it using cp437 table. Converted file is named convertedfile.txt" << endl;
+	cout << endl;
 	//stringstream str;
 	vector <string> utf;
 	setlocale(LC_ALL, "");
@@ -262,12 +265,14 @@ int main()
 	string input_table_hex;
 	ifstream rftable("437.txt");
 	int map_index(0);
-	while (rftable >> input_table_dec)  //Nuskaito cp437
+	while (rftable >> input_table_dec)  //gets cp437
 	{
 		rftable >> input_table_hex;
 		table[input_table_dec] = input_table_hex;
 	}
 	map<int, string>::iterator itr;
+
+	//Using smaller version of 386intel file for faster execution. Use wifstream myfile(L"386intel.txt") for full conversion
 	wifstream myfile(L"file.txt");
 	wofstream dfresult(L"convertedfile.txt");
 	if (myfile)

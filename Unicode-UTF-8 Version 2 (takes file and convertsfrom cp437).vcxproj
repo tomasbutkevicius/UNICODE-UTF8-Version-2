@@ -156,8 +156,7 @@
   <ItemGroup>
     <Text Include="386intel.txt" />
     <Text Include="437.txt" />
-    <Text Include="convertedfile.txt" />
-    <Text Include="converted_386intel.txt" />
+    <Text Include="converted386.txt" />
     <Text Include="file.txt" />
     <Text Include="symbol.txt" />
   </ItemGroup>

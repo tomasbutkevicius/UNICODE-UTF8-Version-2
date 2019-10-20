@@ -20,22 +20,19 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <Text Include="386intel.txt">
-      <Filter>Resource Files</Filter>
-    </Text>
     <Text Include="437.txt">
-      <Filter>Resource Files</Filter>
-    </Text>
-    <Text Include="converted_386intel.txt">
-      <Filter>Resource Files</Filter>
-    </Text>
-    <Text Include="file.txt">
       <Filter>Resource Files</Filter>
     </Text>
     <Text Include="symbol.txt">
       <Filter>Resource Files</Filter>
     </Text>
-    <Text Include="convertedfile.txt">
+    <Text Include="386intel.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="converted386.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="file.txt">
       <Filter>Resource Files</Filter>
     </Text>
   </ItemGroup>

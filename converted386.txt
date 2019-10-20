@@ -1,0 +1,3180 @@
+INTEL 80386 PROGRAMMER'S REFERENCE MANUAL 1986
+
+Intel Corporation makes no warranty for the use of its products and
+assumes no responsibility for any errors which may appear in this document
+nor does it make a commitment to update the information contained herein.
+
+Intel retains the right to make changes to these specifications at any
+time, without notice.
+
+Contact your local sales office to obtain the latest specifications before
+placing your order.
+
+The following are trademarks of Intel Corporation and may only be used to
+identify Intel Products:
+
+Above, BITBUS, COMMputer, CREDIT, Data Pipeline, FASTPATH, Genius, i, î,
+ICE, iCEL, iCS, iDBP, iDIS, I²ICE, iLBX, im, iMDDX, iMMX, Inboard,
+Insite, Intel, intel, intelBOS, Intel Certified, Intelevision,
+inteligent Identifier, inteligent Programming, Intellec, Intellink,
+iOSP, iPDS, iPSC, iRMK, iRMX, iSBC, iSBX, iSDM, iSXM, KEPROM, Library
+Manager, MAPNET, MCS, Megachassis, MICROMAINFRAME, MULTIBUS, MULTICHANNEL,
+MULTIMODULE, MultiSERVER, ONCE, OpenNET, OTP, PC BUBBLE, Plug-A-Bubble,
+PROMPT, Promware, QUEST, QueX, Quick-Pulse Programming, Ripplemode, RMX/80,
+RUPI, Seamless, SLD, SugarCube, SupportNET, UPI, and VLSiCEL, and the
+combination of ICE, iCS, iRMX, iSBC, iSBX, iSXM, MCS, or UPI and a numerical
+suffix, 4-SITE.
+
+MDS is an ordering code only and is not used as a product name or
+trademark. MDS(R) is a registered trademark of Mohawk Data Sciences
+Corporation.
+
+Additional copies of this manual or other Intel literature may be obtained
+from:
+
+Intel Corporation
+Literature Distribution
+Mail Stop SC6-59
+3065 Bowers Avenue
+Santa Clara, CA 95051
+
+(c)INTEL CORPORATION 1987    CG-5/26/87
+
+
+Customer Support
+
+───────────────────────────────────────────────────────────────────────────
+
+Customer Support is Intel's complete support service that provides Intel
+customers with hardware support, software support, customer training, and
+consulting services. For more information contact your local sales offices.
+
+After a customer purchases any system hardware or software product,
+service and support become major factors in determining whether that
+product will continue to meet a customer's expectations. Such support
+requires an international support organization and a breadth of programs
+to meet a variety of customer needs. As you might expect, Intel's customer
+support is quite extensive. It includes factory repair services and
+worldwide field service offices providing hardware repair services,
+software support services, customer training classes, and consulting
+services.
+
+Hardware Support Services
+
+Intel is committed to providing an international service support package
+through a wide variety of service offerings available from Intel Hardware
+Support.
+
+Software Support Services
+
+Intel's software support consists of two levels of contracts. Standard
+support includes TIPS (Technical Information Phone Service), updates and
+subscription service (product-specific troubleshooting guides and COMMENTS
+Magazine). Basic support includes updates and the subscription service.
+Contracts are sold in environments which represent product groupings
+(i.e., iRMX environment).
+
+Consulting Services
+
+Intel provides field systems engineering services for any phase of your
+development or support effort. You can use our systems engineers in a
+variety of ways ranging from assistance in using a new product, developing
+an application, personalizing training, and customizing or tailoring an
+Intel product to providing technical and management consulting. Systems
+Engineers are well versed in technical areas such as microcommunications,
+real-time applications, embedded microcontrollers, and network services.
+You know your application needs; we know our products. Working together we
+can help you get a successful product to market in the least possible time.
+
+Customer Training
+
+Intel offers a wide range of instructional programs covering various
+aspects of system design and implementation. In just three to ten days a
+limited number of individuals learn more in a single workshop than in
+weeks of self-study. For optimum convenience, workshops are scheduled
+regularly at Training Centers woridwide or we can take our workshops to
+you for on-site instruction. Covering a wide variety of topics, Intel's
+major course categories include: architecture and assembly language,
+programming and operating systems, bitbus and LAN applications.
+
+Training Center Locations
+
+To obtain a complete catalog of our workshops, call the nearest Training
+Center in your area.
+
+Boston                    (617) 692-1000
+Chicago                   (312) 310-5700
+San Francisco             (415) 940-7800
+Washington D.C.           (301) 474-2878
+Isreal                    (972) 349-491-099
+Tokyo                     03-437-6611
+Osaka (Call Tokyo)        03-437-6611
+Toronto, Canada           (416) 675-2105
+London                    (0793) 696-000
+Munich                    (089) 5389-1
+Paris                     (01) 687-22-21
+Stockholm                 (468) 734-01-00
+Milan                     39-2-82-44-071
+Benelux (Rotterdam)       (10) 21-23-77
+Copenhagen                (1) 198-033
+Hong Kong                 5-215311-7
+
+
+Table of Contents
+
+Chapter 1  Introduction to the 80386
+
+1.1  Organization of This Manual
+      1.1.1  Part I ── Applications Programming
+      1.1.2  Part II ── Systems Programming
+      1.1.3  Part III ── Compatibility
+      1.1.4  Part IV ── Instruction Set
+      1.1.5  Appendices
+
+1.2  Related Literature
+1.3  Notational Conventions
+      1.3.1  Data-Structure Formats
+      1.3.2  Undefined Bits and Software Compatibility
+      1.3.3  Instruction Operands
+      1.3.4  Hexadecimal Numbers
+      1.3.5  Sub- and Super-Scripts
+
+                     PART I    APPLICATIONS PROGRAMMING                   
+
+Chapter 2  Basic Programming Model
+
+2.1  Memory Organization and Segmentation
+      2.1.1  The"Flat" Model
+      2.1.2  The Segmented Model
+
+2.2  Data Types
+2.3  Registers
+      2.3.1  General Registers
+      2.3.2  Segment Registers
+      2.3.3  Stack Implementation
+      2.3.4  Flags Register
+              2.3.4.1  Status Flags
+              2.3.4.2  Control Flag
+              2.3.4.3  Instruction Pointer
+
+2.4  Instruction Format
+2.5  Operand Selection
+      2.5.1  Immediate Operands
+      2.5.2  Register Operands
+      2.5.3  Memory Operands
+              2.5.3.1  Segment Selection
+              2.5.3.2  Effective-Address Computation
+
+2.6  Interrupts and Exceptions
+
+Chapter 3  Applications Instruction Set
+
+3.1  Data Movement Instructions
+      3.1.1  General-Purpose Data Movement Instructions
+      3.1.2  Stack Manipulation Instructions
+      3.1.3  Type Conversion Instructions
+
+3.2  Binary Arithmetic Instructions
+      3.2.1  Addition and Subtraction Instructions
+      3.2.2  Comparison and Sign Change Instruction
+      3.2.3  Multiplication Instructions
+      3.2.4  Division Instructions
+
+3.3  Decimal Arithmetic Instructions
+      3.3.1  Packed BCD Adjustment Instructions
+      3.3.2  Unpacked BCD Adjustment Instructions
+
+3.4  Logical Instructions
+      3.4.1  Boolean Operation Instructions
+      3.4.2  Bit Test and Modify Instructions
+      3.4.3  Bit Scan Instructions
+      3.4.4  Shift and Rotate Instructions
+              3.4.4.1  Shift Instructions
+              3.4.4.2  Double-Shift Instructions
+              3.4.4.3  Rotate Instructions
+              3.4.4.4  Fast"bit-blt" Using Double Shift
+                         Instructions
+              3.4.4.5  Fast Bit-String Insert and Extract
+
+      3.4.5  Byte-Set-On-Condition Instructions
+      3.4.6  Test Instruction
+
+3.5  Control Transfer Instructions
+      3.5.1  Unconditional Transfer Instructions
+              3.5.1.1  Jump Instruction
+              3.5.1.2  Call Instruction
+              3.5.1.3  Return and Return-From-Interrupt Instruction
+
+      3.5.2  Conditional Transfer Instructions
+              3.5.2.1  Conditional Jump Instructions
+              3.5.2.2  Loop Instructions
+              3.5.2.3  Executing a Loop or Repeat Zero Times
+
+      3.5.3  Software-Generated Interrupts
+
+3.6  String and Character Translation Instructions
+      3.6.1  Repeat Prefixes
+      3.6.2  Indexing and Direction Flag Control
+      3.6.3  String Instructions
+
+3.7  Instructions for Block-Structured Languages
+3.8  Flag Control Instructions
+      3.8.1  Carry and Direction Flag Control Instructions
+      3.8.2  Flag Transfer Instructions
+
+3.9  Coprocessor Interface Instructions
+3.10 Segment Register Instructions
+      3.10.1  Segment-Register Transfer Instructions
+      3.10.2  Far Control Transfer Instructions
+      3.10.3  Data Pointer Instructions
+
+3.11  Miscellaneous Instructions
+       3.11.1  Address Calculation Instruction
+       3.11.2  No-Operation Instruction
+       3.11.3  Translate Instruction
+
+                       PART II    SYSTEMS PROGRAMMING                     
+
+Chapter 4  Systems Architecture
+
+4.1  Systems Registers
+      4.1.1  Systems Flags
+      4.1.2  Memory-Management Registers
+      4.1.3  Control Registers
+      4.1.4  Debug Register
+      4.1.5  Test Registers
+
+4.2  Systems Instructions
+
+Chapter 5  Memory Management
+
+5.1  Segment Translation
+      5.1.1  Descriptors
+      5.1.2  Descriptor Tables
+      5.1.3  Selectors
+      5.1.4  Segment Registers
+
+5.2  Page Translation
+      5.2.1  Page Frame
+      5.2.2  Linear Address
+      5.2.3  Page Tables
+      5.2.4  Page-Table Entries
+              5.2.4.1  Page Frame Address
+              5.2.4.2  Present Bit
+              5.2.4.3  Accessed and Dirty Bits
+              5.2.4.4  Read/Write and User/Supervisor Bits
+
+      5.2.5  Page Translation Cache
+
+5.3  Combining Segment and Page Translation
+      5.3.1  "Flat" Architecture
+      5.3.2  Segments Spanning Several Pages
+      5.3.3  Pages Spanning Several Segments
+      5.3.4  Non-Aligned Page and Segment Boundaries
+      5.3.5  Aligned Page and Segment Boundaries
+      5.3.6  Page-Table per Segment
+
+Chapter 6  Protection
+
+6.1  Why Protection?
+6.2  Overview of 80386 Protection Mechanisms
+6.3  Segment-Level Protection
+      6.3.1  Descriptors Store Protection Parameters
+              6.3.1.1  Type Checking
+              6.3.1.2  Limit Checking
+              6.3.1.3  Privilege Levels
+
+      6.3.2  Restricting Access to Data
+              6.3.2.1  Accessing Data in Code Segments
+
+      6.3.3  Restricting Control Transfers
+      6.3.4  Gate Descriptors Guard Procedure Entry Points
+              6.3.4.1  Stack Switching
+              6.3.4.2  Returning from a Procedure
+
+      6.3.5  Some Instructions are Reserved for Operating System
+              6.3.5.1  Privileged Instructions
+              6.3.5.2  Sensitive Instructions
+
+      6.3.6  Instructions for Pointer Validation
+              6.3.6.1  Descriptor Validation
+              6.3.6.2  Pointer Integrity and RPL
+
+6.4  Page-Level Protection
+      6.4.1  Page-Table Entries Hold Protection Parameters
+              6.4.1.1  Restricting Addressable Domain
+              6.4.1.2  Type Checking
+
+      6.4.2  Combining Protection of Both Levels of Page Tables
+      6.4.3  Overrides to Page Protection
+
+6.5  Combining Page and Segment Protection
+
+Chapter 7  Multitasking
+
+7.1  Task State Segment
+7.2  TSS Descriptor
+7.3  Task Register
+7.4  Task Gate Descriptor
+7.5  Task Switching
+7.6  Task Linking
+      7.6.1  Busy Bit Prevents Loops
+      7.6.2  Modifying Task Linkages
+
+7.7  Task Address Space
+      7.7.1  Task Linear-to-Physical Space Mapping
+      7.7.2  Task Logical Address Space
+
+Chapter 8    Input/Output
+
+8.1  I/O Addressing
+      8.1.1  I/O Address Space
+      8.1.2  Memory-Mapped I/O
+
+8.2  I/O Instructions
+      8.2.1  Register I/O Instructions
+      8.2.2  Block I/O Instructions
+
+8.3  Protection and I/O
+      8.3.1  I/O Privilege Level
+      8.3.2  I/O Permission Bit Map
+
+Chapter 9  Exceptions and Interrupts
+
+9.1  Identifying Interrupts
+9.2  Enabling and Disabling Interrupts
+      9.2.1  NMI Masks Further NMls
+      9.2.2  IF Masks INTR
+      9.2.3  RF Masks Debug Faults
+      9.2.4  MOV or POP to SS Masks Some Interrupts and Exceptions
+
+9.3  Priority Among Simultaneous Interrupts and Exceptions
+9.4  Interrupt Descriptor Table
+9.5  IDT Descriptors
+9.6  Interrupt Tasks and Interrupt Procedures
+      9.6.1  Interrupt Procedures
+              9.6.1.1  Stack of Interrupt Procedure
+              9.6.1.2  Returning from an Interrupt Procedure
+              9.6.1.3  Flags Usage by Interrupt Procedure
+              9.6.1.4  Protection in Interrupt Procedures
+
+      9.6.2  Interrupt Tasks
+
+9.7  Error Code
+9.8  Exception Conditions
+      9.8.1  Interrupt 0 ── Divide Error
+      9.8.2  Interrupt 1 ── Debug Exceptions
+      9.8.3  Interrupt 3 ── Breakpoint
+      9.8.4  Interrupt 4 ── Overflow
+      9.8.5  Interrupt 5 ── Bounds Check
+      9.8.6  Interrupt 6 ── Invalid Opcode
+      9.8.7  Interrupt 7 ── Coprocessor Not Available
+      9.8.8  Interrupt 8 ── Double Fault
+      9.8.9  Interrupt 9 ── Coprocessor Segment Overrun
+      9.8.10 Interrupt 10 ── Invalid TSS
+      9.8.11 Interrupt 11 ── Segment Not Present
+      9.8.12 Interrupt 12 ── Stack Exception
+      9.8.13 Interrupt 13 ── General Protection Exception
+      9.8.14 Interrupt 14 ── Page Fault
+              9.8.14.1  Page Fault during Task Switch
+              9.8.14.2  Page Fault with Inconsistent Stack Pointer
+
+      9.8.15 Interrupt 16 ── Coprocessor Error
+
+9.9  Exception Summary
+
+9.10  Error Code Summary
+
+Chapter 10  Initialization
+
+10.1  Processor State after Reset
+10.2  Software Initialization for Real-Address Mode
+       10.2.1  Stack
+       10.2.2  Interrupt Table
+       10.2.3  First Instructions
+
+10.3  Switching to Protected Mode
+10.4  Software Initialization for Protected Mode
+       10.4.1  Interrupt Descriptor Table
+       10.4.2  Stack
+       10.4.3  Global Descriptor Table
+       10.4.4  Page Tables
+       10.4.5  First Task
+
+10.5  Initialization Example
+10.6  TLB Testing
+       10.6.1  Structure of the TLB
+       10.6.2  Test Registers
+       10.6.3  Test Operations
+
+Chapter 11  Coprocessing and Multiprocessing
+
+11.1  Coprocessing
+       11.1.1  Coprocessor Identification
+       11.1.2  ESC and WAIT Instructions
+       11.1.3  EM and MP Flags
+       11.1.4  The Task-Switched Flag
+       11.1.5  Coprocessor Exceptions
+                11.1.5.1  Interrupt 7 ── Coprocessor Not Available
+                11.1.5.2  Interrupt 9 ── Coprocessor Segment Overrun
+                11.1.5.3  Interrupt 16 ── Coprocessor Error
+
+11.2  General Multiprocessing
+       11.2.1  LOCK and the LOCK# Signal
+       11.2.2  Automatic Locking
+       11.2.3  Cache Considerations
+
+Chapter 12  Debugging
+
+12.1  Debugging Features of the Architecture
+12.2  Debug Registers
+       12.2.1  Debug Address Registers (DRO-DR3)
+       12.2.2  Debug Control Register (DR7)
+       12.2.3  Debug Status Register (DR6)
+       12.2.4  Breakpoint Field Recognition
+
+12.3  Debug Exceptions
+       12.3.1  Interrupt 1 ── Debug Exceptions
+                12.3.1.1  Instruction Address Breakpoint
+                12.3.1.2  Data Address Breakpoint
+                12.3.1.3  General Detect Fault
+                12.3.1.4  Single-Step Trap
+                12.3.1.5  Task Switch Breakpoint
+
+       12.3.2  Interrupt 3 ── Breakpoint Exception
+
+                          PART III    COMPATIBILITY                       
+
+Chapter 13  Executing 80286 Protected-Mode Code
+
+13.1  80286 Code Executes as a Subset of the 80386
+13.2  Two Ways to Execute 80286 Tasks
+13.3  Differences from 80286
+       13.3.1  Wraparound of 80286 24-Bit Physical Address Space
+       13.3.2  Reserved Word of Descriptor
+       13.3.3  New Descriptor Type Codes
+       13.3.4  Restricted Semantics of LOCK
+       13.3.5  Additional Exceptions
+
+Chapter 14  80386 Real-Address Mode
+
+14.1  Physical Address Formation
+14.2  Registers and Instructions
+14.3  Interrupt and Exception Handling
+14.4  Entering and Leaving Real-Address Mode
+       14.4.1  Switching to Protected Mode
+
+14.5  Switching Back to Real-Address Mode
+14.6  Real-Address Mode Exceptions
+14.7  Differences from 8086
+14.8  Differences from 80286 Real-Address Mode
+       14.8.1  Bus Lock
+       14.8.2  Location of First Instruction
+       14.8.3  Initial Values of General Registers
+       14.8.4  MSW Initialization
+
+Chapter 15  Virtual 8088 Mode
+
+15.1  Executing 8086 Code
+       15.1.1  Registers and Instructions
+       15.1.2  Linear Address Formation
+
+15.2  Structure of a V86 Task
+       15.2.1  Using Paging for V86 Tasks
+       15.2.2  Protection within a V86 Task
+
+15.3  Entering and Leaving V86 Mode
+       15.3.1  Transitions Through Task Switches
+       15.3.2  Transitions Through Trap Gates and Interrupt Gates
+
+15.4  Additional Sensitive Instructions
+       15.4.1  Emulating 8086 Operating System Calls
+       15.4.2  Virtualizing the Interrupt-Enable Flag
+
+15.5  Virtual I/O
+       15.5.1  I/O-Mapped I/O
+       15.5.2  Memory-Mapped I/O
+       15.5.3  Special I/O Buffers
+
+15.6  Differences from 8086
+15.7  Differences from 80286 Real-Address Mode
+
+Chapter 16  Mixing 16-Bit and 32-Bit Code
+
+16.1  How the 80386 Implements 16-Bit and 32-Bit Features
+16.2  Mixing 32-Bit and 16-Bit Operations
+16.3  Sharing Data Segments among Mixed Code Segments
+16.4  Transferring Control among Mixed Code Segments
+       16.4.1  Size of Code-Segment Pointer
+       16.4.2  Stack Management for Control Transfers
+                16.4.2.1  Controlling the Operand-Size for a CALL
+                16.4.2.2  Changing Size of Call
+
+       16.4.3  Interrupt Control Transfers
+       16.4.4  Parameter Translation
+       16.4.5  The Interface Procedure
+
+                         PART IV    INSTRUCTION SET                       
+
+Chapter 17  80386 Instruction Set
+
+17.1  Operand-Size and Address-Size Attributes
+       17.1.1  Default Segment Attribute
+       17.1.2  Operand-Size and Address-Size Instruction Prefixes
+       17.1.3  Address-Size Attribute for Stack
+
+17.2  Instruction Format
+       17.2.1  ModR/M and SIB Bytes
+       17.2.2  How to Read the Instruction Set Pages
+                17.2.2.1  Opcode
+                17.2.2.2  Instruction
+                17.2.2.3  Clocks
+                17.2.2.4  Description
+                17.2.2.5  Operation
+                17.2.2.6  Description
+                17.2.2.7  Flags Affected
+                17.2.2.8  Protected Mode Exceptions
+                17.2.2.9  Real Address Mode Exceptions
+                17.2.2.10 Virtual-8086 Mode Exceptions
+
+Instruction Sets
+
+AAA
+AAD
+AAM
+AAS
+ADC
+ADD
+AND
+ARPL
+BOUND
+BSF
+BSR
+BT
+BTC
+BTR
+BTS
+CALL
+CBW/CWDE
+CLC
+CLD
+CLI
+CLTS
+CMC
+CMP
+CMPS/CMPSB/CMPSW/CMPSD
+CWD/CDQ
+DAA
+DAS
+DEC
+DIV
+ENTER
+HLT
+IDIV
+IMUL
+IN
+INC
+INS/INSB/INSW/INSD
+INT/INTO
+IRET/IRETD
+Jcc
+JMP
+LAHF
+LAR
+LEA
+LEAVE
+LGDT/LIDT
+LGS/LSS/LDS/LES/LFS
+LLDT
+LMSW
+LOCK
+LODS/LODSB/LODSW/LODSD
+LOOP/LOOPcond
+LSL
+LTR
+MOV
+MOV
+MOVS/MOVSB/MOVSW/MOVSD
+MOVSX
+MOVZX
+MUL
+NEG
+NOP
+NOT
+OR
+OUT
+OUTS/OUTSB/OUTSW/OUTSD
+POP
+POPA/POPAD
+POPF/POPFD
+PUSH
+PUSHA/PUSHAD
+PUSHF/PUSHFD
+RCL/RCR/ROL/ROR
+REP/REPE/REPZ/REPNE/REPNZ
+RET
+SAHF
+SAL/SAR/SHL/SHR
+SBB
+SCAS/SCASB/SCASW/SCASD
+SETcc
+SGDT/SIDT
+SHLD
+SHRD
+SLDT
+SMSW
+STC
+STD
+STI
+STOS/STOSB/STOSW/STOSD
+STR
+SUB
+TEST
+VERR,VERW
+WAIT
+XCHG
+XLAT/XLATB
+XOR
+
+Appendix A  Opcode Map
+
+Appendix B  Complete Flag Cross-Reference
+
+Appendix C  Status Flag Summary
+
+Appendix D  Condition Codes
+
+
+Figures
+
+1-1     Example Data Structure
+
+2-1     Two-Component Pointer
+2-2     Fundamental Data Types
+2-3     Bytes, Words, and Doublewords in Memory
+2-4     80386 Data Types
+2-5     80386 Applications Register Set
+2-6     Use of Memory Segmentation
+2-7     80386 Stack
+2-8     EFLAGS Register
+2-9     Instruction Pointer Register
+2-10    Effective Address Computation
+
+3-1     PUSH
+3-2     PUSHA
+3-3     POP
+3-4     POPA
+3-5     Sign Extension
+3-6     SAL and SHL
+3-7     SHR
+3-8     SAR
+3-9     Using SAR to Simulate IDIV
+3-10    Shift Left Double
+3-11    Shift Right Double
+3-12    ROL
+3-13    ROR
+3-14    RCL
+3-15    RCR
+3-16    Formal Definition of the ENTER Instruction
+3-17    Variable Access in Nested Procedures
+3-18    Stack Frame for MAIN at Level 1
+3-19    Stack Frame for Prooedure A
+3-20    Stack Frame for Procedure B at Level 3 Called from A
+3-21    Stack Frame for Procedure C at Level 3 Called from B
+3-22    LAHF and SAHF
+3-23    Flag Format for PUSHF and POPF
+
+4-1     Systems Flags of EFLAGS Register
+4-2     Control Registers
+
+5-1     Address Translation Overview
+5-2     Segment Translation
+5-3     General Segment-Descriptor Format
+5-4     Format of Not-Present Descriptor
+5-5     Descriptor Tables
+5-6     Format of a Selector
+5-7     Segment Registers
+5-8     Format of a Linear Address
+5-9     Page Translation
+5-10    Format of a Page Table Entry
+5-11    Invalid Page Table Entry
+5-12    80386 Addressing Mechanism
+5-13    Descriptor per Page Table
+
+6-1     Protection Fields of Segment Descriptors
+6-2     Levels of Privilege
+6-3     Privilege Check for Data Access
+6-4     Privilege Check for Control Transfer without Gate
+6-5     Format of 80386 Call Gate
+6-6     Indirect Transfer via Call Gate
+6-7     Privilege Check via Call Gate
+6-8     Initial Stack Pointers of TSS
+6-9     Stack Contents after an Interievel Call
+6-10    Protection Fields of Page Table Entries
+
+7-1     80386 32-Bit Task State Segment
+7-2     TSS Descriptor for 32-Bit TSS
+7-3     Task Register
+7-4     Task Gate Descriptor
+7-5     Task Gate Indirectly Identifies Task
+7-6     Partially-Overlapping Linear Spaces
+
+8-1     Memory-Mapped I/O
+8-2     I/O Address Bit Map
+
+9-1     IDT Register and Table
+9-2     Pseudo-Descriptor Format for LIDT and SIDT
+9-3     80386 IDT Gate Descriptors
+9-4     Interrupt Vectoring for Procedures
+9-5     Stack Layout after Exception of Interrupt
+9-6     Interrupt Vectoring for Tasks
+9-7     Error Code Format
+9-8     Page-Fault Error Code Format
+9-9     CR2 Format
+
+10-1    Contents of EDX after RESET
+10-2    Initial Contents of CRO
+10-3    TLB Structure
+10-4    Test Registers
+
+12-1    Debug Registers
+
+14-1    Real-Address Mode Address Formation
+
+15-1    V86 Mode Address Formation
+15-2    Entering and Leaving an 8086 Program
+15-3    PL 0 Stack after Interrupt in V86 Task
+
+16-1    Stack after Far 16-Bit and 32-Bit Calls
+
+17-1    80386 Instruction Format
+17-2    ModR/M and SIB Byte Formats
+17-3    Bit Offset for BIT[EAX, 21]
+17-4    Memory Bit Indexing
+
+
+Tables
+
+2-1      Default Segment Register Selection Rules
+2-2      80386 Reserved Exceptions and Interrupts
+
+3-1      Bit Test and Modify Instructions
+3-2      Interpretation of Conditional Transfers
+
+6-1      System and Gate Descriptor Types
+6-2      Useful Combinations of E, G, and B Bits
+6-3      Interievel Return Checks
+6-4      Valid Descriptor Types for LSL
+6-5      Combining Directory and Page Protection
+
+7-1      Checks Made during a Task Switch
+7-2      Effect of Task Switch on BUSY, NT, and Back-Link
+
+9-1      Interrupt and Exception ID Assignments
+9-2      Priority Among Simultaneous Interrupts and Exceptions
+9-3      Double-Fault Detection Classes
+9-4      Double-Fault Definition
+9-5      Conditions That Invalidate the TSS
+9-6      Exception Summary
+9-7      Error-Code Summary
+
+10-1     Meaning of D, U, and W Bit Pairs
+
+12-1     Breakpeint Field Recognition Examples
+12-2     Debug Exception Conditions
+
+14-1     80386 Real-Address Mode Exceptions
+14-2     New 80386 Exceptions
+
+17-1     Effective Size Attributes
+17-2     16-Bit Addressing Forms with the ModR/M Byte
+17-3     32-Bit Addressing Forms with the ModR/M Byte
+17-4     32-Bit Addressing Forms with the SIB Byte
+17-5     Task Switch Times for Exceptions
+17-6     80386 Exceptions
+
+
+Chapter 1  Introduction to the 80386
+
+────────────────────────────────────────────────────────────────────────────
+
+The 80386 is an advanced 32-bit microprocessor optimized for multitasking
+operating systems and designed for applications needing very high
+performance. The 32-bit registers and data paths support 32-bit addresses
+and data types. The processor can address up to four gigabytes of physical
+memory and 64 terabytes (2^(46) bytes) of virtual memory. The on-chip
+memory-management facilities include address translation registers,
+advanced multitasking hardware, a protection mechanism, and paged virtual
+memory. Special debugging registers provide data and code breakpoints even
+in ROM-based software.
+
+
+1.1  Organization of This Manual
+
+This book presents the architecture of the 80386 in five parts:
+
+   Part I      ── Applications Programming
+   Part II     ── Systems Programming
+   Part III    ── Compatibility
+   Part IV     ── Instruction Set
+   Appendices
+
+These divisions are determined in part by the architecture itself and in
+part by the different ways the book will be used. As the following table
+indicates, the latter two parts are intended as reference material for
+programmers actually engaged in the process of developing software for the
+80386. The first three parts are explanatory, showing the purpose of
+architectural features, developing terminology and concepts, and describing
+instructions as they relate to specific purposes or to specific
+architectural features.
+
+Explanation                Part I   ── Applications Programming
+                           Part II  ── Systems Programming
+                           Part III ── Compatibility
+
+Reference                  Part IV  ── Instruction Set
+                           Appendices
+
+The first three parts follow the execution modes and protection features of
+the 80386 CPU. The distinction between applications features and systems
+features is determined by the protection mechanism of the 80386. One purpose
+of protection is to prevent applications from interfering with the operating
+system; therefore, the processor makes certain registers and instructions
+inaccessible to applications programs. The features discussed in Part I are
+those that are accessible to applications; the features in Part II are
+available only to systems software that has been given special privileges or
+in unprotected systems.
+
+The processing mode of the 80386 also determines the features that are
+accessible. The 80386 has three processing modes:
+
+   1.  Protected Mode.
+   2.  Real-Address Mode.
+   3.  Virtual 8086 Mode.
+
+Protected mode is the natural 32-bit environment of the 80386 processor. In
+this mode all instructions and features are available.
+
+Real-address mode (often called just "real mode") is the mode of the
+processor immediately after RESET. In real mode the 80386 appears to
+programmers as a fast 8086 with some new instructions. Most applications of
+the 80386 will use real mode for initialization only.
+
+Virtual 8086 mode (also called V86 mode) is a dynamic mode in the sense
+that the processor can switch repeatedly and rapidly between V86 mode and
+protected mode. The CPU enters V86 mode from protected mode to execute an
+8086 program, then leaves V86 mode and enters protected mode to continue
+executing a native 80386 program.
+
+The features that are available to applications programs in protected mode
+and to all programs in V86 mode are the same. These features form the
+content of Part I. The additional features that are available to systems
+software in protected mode form Part II. Part III explains real-address
+mode and V86 mode, as well as how to execute a mix of 32-bit and 16-bit
+programs.
+
+Available in All Modes             Part I ── Applications Programming
+
+Available in Protected             Part II ── Systems Programming
+Mode Only
+
+Compatibility Modes                Part III ── Compatibility
+
+
+1.1.1  Part I ── Applications Programming
+
+This part presents those aspects of the architecture that are customarily
+used by applications programmers.
+
+Chapter 2 ── Basic Programming Model: Introduces the models of memory
+organization. Defines the data types. Presents the register set used by
+applications. Introduces the stack. Explains string operations. Defines the
+parts of an instruction. Explains addressing calculations. Introduces
+interrupts and exceptions as they may apply to applications programming.
+
+Chapter 3 ── Application Instruction Set: Surveys the instructions commonly
+used for applications programming. Considers instructions in functionally
+related groups; for example, string instructions are considered in one
+section, while control-transfer instructions are considered in another.
+Explains the concepts behind the instructions. Details of individual
+instructions are deferred until Part IV, the instruction-set reference.
+
+
+1.1.2  Part II ── Systems Programming
+
+This part presents those aspects of the architecture that are customarily
+used by programmers who write operating systems, device drivers, debuggers,
+and other software that supports applications programs in the protected mode
+of the 80386.
+
+Chapter 4 ── Systems Architecture: Surveys the features of the 80386 that 
+are used by systems programmers. Introduces the remaining registers and data
+structures of the 80386 that were not discussed in Part I. Introduces the
+systems-oriented instructions in the context of the registers and data
+structures they support. Points to the chapter where each register, data
+structure, and instruction is considered in more detail.
+
+Chapter 5 ── Memory Management: Presents details of the data structures,
+registers, and instructions that support virtual memory and the concepts of
+segmentation and paging. Explains how systems designers can choose a model
+of memory organization ranging from completely linear ("flat") to fully
+paged and segmented.
+
+Chapter 6 ── Protection: Expands on the memory management features of the
+80386 to include protection as it applies to both segments and pages.
+Explains the implementation of privilege rules, stack switching, pointer
+validation, user and supervisor modes. Protection aspects of multitasking
+are deferred until the following chapter.
+
+Chapter 7 ── Multitasking: Explains how the hardware of the 80386 supports
+multitasking with context-switching operations and intertask protection.
+
+Chapter 8 ── Input/Output: Reveals the I/O features of the 80386, including
+I/O instructions, protection as it relates to I/O, and the I/O permission
+map.
+
+Chapter 9 ── Exceptions and Interrupts: Explains the basic interrupt
+mechanisms of the 80386. Shows how interrupts and exceptions relate to
+protection. Discusses all possible exceptions, listing causes and including
+information needed to handle and recover from the exception.
+
+Chapter 10 ── Initialization: Defines the condition of the processor after
+RESET or power-up. Explains how to set up registers, flags, and data
+structures for either real-address mode or protected mode. Contains an
+example of an initialization program.
+
+Chapter 11 ── Coprocessing and Multiprocessing: Explains the instructions
+and flags that support a numerics coprocessor and multiple CPUs with shared
+memory.
+
+Chapter 12 ── Debugging: Tells how to use the debugging registers of the
+80386.
+
+
+1.1.3  Part III ── Compatibility
+
+Other parts of the book treat the processor primarily as a 32-bit machine,
+omitting for simplicity its facilities for 16-bit operations. Indeed, the
+80386 is a 32-bit machine, but its design fully supports 16-bit operands and
+addressing, too. This part completes the picture of the 80386 by explaining
+the features of the architecture that support 16-bit programs and 16-bit
+operations in 32-bit programs. All three processor modes are used to
+execute 16-bit programs: protected mode can directly execute 16-bit 80286
+protected mode programs, real mode executes 8086 programs and real-mode
+80286 programs, and virtual 8086 mode executes 8086 programs in a
+multitasking environment with other 80386 protected-mode programs. In
+addition, 32-bit and 16-bit modules and individual 32-bit and 16-bit
+operations can be mixed in protected mode.
+
+Chapter 13 ── Executing 80286 Protected-Mode Code: In its protected mode,
+the 80386 can execute complete 80286 protected-mode systems, because 80286
+capabilities are a subset of 80386 capabilities.
+
+Chapter 14 ── 80386 Real-Address Mode: Explains the real mode of the 80386
+CPU. In this mode the 80386 appears as a fast real-mode 80286 or fast 8086
+enhanced with additional instructions.
+
+Chapter 15 ── Virtual 8086 Mode: The 80386 can switch rapidly between its
+protected mode and V86 mode, giving it the ability to multiprogram 8086
+programs along with "native mode" 32-bit programs.
+
+Chapter 16 ── Mixing 16-Bit and 32-Bit Code: Even within a program or task,
+the 80386 can mix 16-bit and 32-bit modules. Furthermore, any given module
+can utilize both 16-bit and 32-bit operands and addresses.
+
+
+1.1.4  Part IV ── Instruction Set
+
+Parts I, II, and III present overviews of the instructions as they relate
+to specific aspects of the architecture, but this part presents the
+instructions in alphabetical order, providing the detail needed by
+assembly-language programmers and programmers of debuggers, compilers,
+operating systems, etc. Instruction descriptions include algorithmic
+description of operation, effect of flag settings, effect on flag settings,
+effect of operand- or address-size attributes, effect of processor modes,
+and possible exceptions.
+
+
+1.1.5  Appendices
+
+The appendices present tables of encodings and other details in a format
+designed for quick reference by assembly-language and systems programmers.
+
+
+1.2  Related Literature
+
+The following books contain additional material concerning the 80386
+microprocessor:
+
+  ■  Introduction to the 80386, order number 231252
+
+  ■  80386 Hardware Reference Manual, order number 231732
+
+  ■  80386 System Software Writer's Guide, order number 231499
+
+  ■  80386 High Performance 32-bit Microprocessor with Integrated Memory
+     Management (Data Sheet), order number 231630
+
+
+1.3  Notational Conventions
+
+This manual uses special notations for data-structure formats, for symbolic
+representation of instructions, for hexadecimal numbers, and for super- and
+sub-scripts. Subscript characters are surrounded by {curly brackets}, for
+example 10{2} = 10 base 2. Superscript characters are preceeded by a caret
+and enclosed within (parentheses), for example 10^(3) = 10 to the third
+power. A review of these notations will make it easier to read the
+manual.
+
+1.3.1  Data-Structure Formats
+
+In illustrations of data structures in memory, smaller addresses appear at
+the lower-right part of the figure; addresses increase toward the left and
+upwards. Bit positions are numbered from right to left. Figure 1-1
+illustrates this convention.
+
+
+1.3.2  Undefined Bits and Software Compatibility
+
+In many register and memory layout descriptions, certain bits are marked as
+undefined. When bits are marked as undefined (as illustrated in Figure
+1-1), it is essential for compatibility with future processors that
+software treat these bits as undefined. Software should follow these
+guidelines in dealing with undefined bits:
+
+  ■  Do not depend on the states of any undefined bits when testing the
+     values of registers that contain such bits. Mask out the undefined bits
+     before testing.
+
+  ■  Do not depend on the states of any undefined bits when storing them in
+     memory or in another register.
+
+  ■  Do not depend on the ability to retain information written into any
+     undefined bits.
+
+  ■  When loading a register, always load the undefined bits as zeros or
+     reload them with values previously stored from the same register.
+
+────────────────────────────────────────────────────────────────────────────
+NOTE
+  Depending upon the values of undefined register bits will make software
+  dependent upon the unspecified manner in which the 80386 handles these
+  bits. Depending upon undefined values risks making software incompatible
+  with future processors that define usages for these bits. AVOID ANY
+  SOFTWARE DEPENDENCE UPON THE STATE OF UNDEFINED 80386 REGISTER BITS.
+────────────────────────────────────────────────────────────────────────────
+
+
+Figure 1-1.  Example Data Structure
+
+ GREATEST                 DATA STRUCTURE
+ ADDRESS
+  31              23              15              7             0 ──BIT
+ ╔═══════════════╪═══════════════╪═══════════════╪═══════════════╗   OFFSET
+ ║                                                               ║28
+ ╠═══════════════╪═══════════════╪═══════════════╪═══════════════╣
+ ║                                                               ║24
+ ╠═══════════════╪═══════════════╪═══════════════╪═══════════════╣
+ ║                                                               ║20
+ ╠═══════════════╪═══════════════╪═══════════════╪═══════════════╣
+ ║                                                               ║16
+ ╠═══════════════╪═══════════════╪═══════════════╪═══════════════╣
+ ║                                                               ║12
+ ╠═══════════════╪═══════════════╪═══════════════╪═══════════════╣
+ ║                                                               ║8
+ ╠═══════════════╪═══════════════╪═══════════════╪═══════════════╣
+ ║                           UNDEFINED                           ║4
+ ╠═══════════════╪═══════════════╪═══════════════╪═══════════════╣  SMALLEST
+ ║    BYTE 3          BYTE 2          BYTE 1          BYTE 0     ║0 ADDRESS
+ ╚═══════════════╪═══════════════╪═══════════════╪═══════════════╝
+                                                    BYTE OFFSET───┘
+
+
+1.3.3  Instruction Operands
+
+When instructions are represented symbolically, a subset of the 80386
+Assembly Language is used. In this subset, an instruction has the following
+format:
+
+label: prefix mnemonic argument1, argument2, argument3
+
+where:
+
+  ■  A label is an identifier that is followed by a colon.
+
+  ■  A prefix is an optional reserved name for one of the instruction
+     prefixes.
+
+  ■  A mnemonic is a reserved name for a class of instruction opcodes that
+     have the same function.
+
+  ■  The operands argument1, argument2, and argument3 are optional. There
+     may be from zero to three operands, depending on the opcode.  When
+     present, they take the form of either literals or identifiers for data
+     items.  Operand identifiers are either reserved names of registers or
+     are assumed to be assigned to data items declared in another part of
+     the program (which may not be shown in the example). When two operands
+     are present in an instruction that modifies data, the right operand is
+     the source and the left operand is the destination.
+
+For example:
+
+LOADREG: MOV EAX, SUBTOTAL
+
+In this example LOADREG is a label, MOV is the mnemonic identifier of an
+opcode, EAX is the destination operand, and SUBTOTAL is the source operand.
+
+1.3.4  Hexadecimal Numbers
+
+Base 16 numbers are represented by a string of hexadecimal digits followed
+by the character H.  A hexadecimal digit is a character from the set (0, 1,
+2, 3, 4, 5, 6, 7, 8, 9, A, B, C, D, E, F).  In some cases, especially in
+examples of program syntax, a leading zero is added if the number would
+otherwise begin with one of the digits A-F.  For example, 0FH is equivalent
+to the decimal number 15.
+
+1.3.5  Sub- and Super-Scripts
+
+This manual uses special notation to represent sub- and super-script
+characters. Sub-script characters are surrounded by {curly brackets}, for
+example 10{2} = 10 base 2. Super-script characters are preceeded by a
+caret and enclosed within (parentheses), for example 10^(3) = 10 to the
+third power.
+
+
+                     PART I    APPLICATIONS PROGRAMMING                    
+
+
+Chapter 2  Basic Programming Model
+
+────────────────────────────────────────────────────────────────────────────
+
+This chapter describes the 80386 application programming environment as
+seen by assembly language programmers when the processor is executing in
+protected mode. The chapter introduces programmers to those features of the
+80386 architecture that directly affect the design and implementation of
+80386 applications programs. Other chapters discuss 80386 features that
+relate to systems programming or to compatibility with other processors of
+the 8086 family.
+
+The basic programming model consists of these aspects:
+
+  ■  Memory organization and segmentation
+  ■  Data types
+  ■  Registers
+  ■  Instruction format
+  ■  Operand selection
+  ■  Interrupts and exceptions
+
+Note that input/output is not included as part of the basic programming
+model. Systems designers may choose to make I/O instructions available to
+applications or may choose to reserve these functions for the operating
+system. For this reason, the I/O features of the 80386 are discussed in Part
+II.
+
+This chapter contains a section for each aspect of the architecture that is
+normally visible to applications.
+
+
+2.1  Memory Organization and Segmentation
+
+The physical memory of an 80386 system is organized as a sequence of 8-bit
+bytes. Each byte is assigned a unique address that ranges from zero to a
+maximum of 2^(32) -1 (4 gigabytes).
+
+80386 programs, however, are independent of the physical address space.
+This means that programs can be written without knowledge of how much
+physical memory is available and without knowledge of exactly where in
+physical memory the instructions and data are located.
+
+The model of memory organization seen by applications programmers is
+determined by systems-software designers. The architecture of the 80386
+gives designers the freedom to choose a model for each task. The model of
+memory organization can range between the following extremes:
+
+  ■  A "flat" address space consisting of a single array of up to 4
+     gigabytes.
+
+  ■  A segmented address space consisting of a collection of up to 16,383
+     linear address spaces of up to 4 gigabytes each.
+
+Both models can provide memory protection. Different tasks may employ
+different models of memory organization. The criteria that designers use to
+determine a memory organization model and the means that systems programmers
+use to implement that model are covered in Part II──Systems Programming.
+
+
+2.1.1  The "Flat" Model
+
+In a "flat" model of memory organization, the applications programmer sees
+a single array of up to 2^(32) bytes (4 gigabytes). While the physical
+memory can contain up to 4 gigabytes, it is usually much smaller; the
+processor maps the 4 gigabyte flat space onto the physical address space by
+the address translation mechanisms described in Chapter 5. Applications
+programmers do not need to know the details of the mapping.
+
+A pointer into this flat address space is a 32-bit ordinal number that may
+range from 0 to 2^(32) -1. Relocation of separately-compiled modules in this
+space must be performed by systems software (e.g., linkers, locators,
+binders, loaders).
+
+
+2.1.2  The Segmented Model
+
+In a segmented model of memory organization, the address space as viewed by
+an applications program (called the logical address space) is a much larger
+space of up to 2^(46) bytes (64 terabytes). The processor maps the 64
+terabyte logical address space onto the physical address space (up to 4
+gigabytes) by the address translation mechanisms described in Chapter 5.
+Applications programmers do not need to know the details of this mapping.
+
+Applications programmers view the logical address space of the 80386 as a
+collection of up to 16,383 one-dimensional subspaces, each with a specified
+length. Each of these linear subspaces is called a segment. A segment is a
+unit of contiguous address space. Segment sizes may range from one byte up
+to a maximum of 2^(32) bytes (4 gigabytes).
+
+A complete pointer in this address space consists of two parts (see Figure
+2-1):
+
+  1.  A segment selector, which is a 16-bit field that identifies a
+      segment.
+
+  2.  An offset, which is a 32-bit ordinal that addresses to the byte level
+      within a segment.
+
+During execution of a program, the processor associates with a segment
+selector the physical address of the beginning of the segment. Separately
+compiled modules can be relocated at run time by changing the base address
+of their segments. The size of a segment is variable; therefore, a segment
+can be exactly the size of the module it contains.
+
+
+2.2  Data Types
+
+Bytes, words, and doublewords are the fundamental data types (refer to
+Figure 2-2). A byte is eight contiguous bits starting at any logical
+address. The bits are numbered 0 through 7; bit zero is the least
+significant bit.
+
+A word is two contiguous bytes starting at any byte address. A word thus
+contains 16 bits. The bits of a word are numbered from 0 through 15; bit 0
+is the least significant bit. The byte containing bit 0 of the word is
+called the low byte; the byte containing bit 15 is called the high byte.
+
+Each byte within a word has its own address, and the smaller of the
+addresses is the address of the word. The byte at this lower address
+contains the eight least significant bits of the word, while the byte at the
+higher address contains the eight most significant bits.
+
+A doubleword is two contiguous words starting at any byte address. A
+doubleword thus contains 32 bits. The bits of a doubleword are numbered from
+0 through 31; bit 0 is the least significant bit. The word containing bit 0
+of the doubleword is called the low word; the word containing bit 31 is
+called the high word.
+
+Each byte within a doubleword has its own address, and the smallest of the
+addresses is the address of the doubleword. The byte at this lowest address
+contains the eight least significant bits of the doubleword, while the byte
+at the highest address contains the eight most significant bits. Figure 2-3
+illustrates the arrangement of bytes within words anddoublewords.
+
+Note that words need not be aligned at even-numbered addresses and
+doublewords need not be aligned at addresses evenly divisible by four. This
+allows maximum flexibility in data structures (e.g., records containing
+mixed byte, word, and doubleword items) and efficiency in memory
+utilization. When used in a configuration with a 32-bit bus, actual
+transfers of data between processor and memory take place in units of
+doublewords beginning at addresses evenly divisible by four; however, the
+processor converts requests for misaligned words or doublewords into the
+appropriate sequences of requests acceptable to the memory interface. Such
+misaligned data transfers reduce performance by requiring extra memory
+cycles. For maximum performance, data structures (including stacks) should
+be designed in such a way that, whenever possible, word operands are aligned
+at even addresses and doubleword operands are aligned at addresses evenly
+divisible by four. Due to instruction prefetching and queuing within the
+CPU, there is no requirement for instructions to be aligned on word or
+doubleword boundaries. (However, a slight increase in speed results if the
+target addresses of control transfers are evenly divisible by four.)
+
+Although bytes, words, and doublewords are the fundamental types of
+operands, the processor also supports additional interpretations of these
+operands. Depending on the instruction referring to the operand, the
+following additional data types are recognized:
+
+Integer:
+A signed binary numeric value contained in a 32-bit doubleword,16-bit word,
+or 8-bit byte. All operations assume a 2's complement representation. The
+sign bit is located in bit 7 in a byte, bit 15 in a word, and bit 31 in a
+doubleword. The sign bit has the value zero for positive integers and one
+for negative. Since the high-order bit is used for a sign, the range of an
+8-bit integer is -128 through +127; 16-bit integers may range from -32,768
+through +32,767; 32-bit integers may range from -2^(31) through +2^(31) -1.
+The value zero has a positive sign.
+
+Ordinal:
+An unsigned binary numeric value contained in a 32-bit doubleword,
+16-bit word, or 8-bit byte. All bits are considered in determining
+magnitude of the number. The value range of an 8-bit ordinal number
+is 0-255; 16 bits can represent values from 0 through 65,535; 32 bits
+can represent values from 0 through 2^(32) -1.
+
+Near Pointer:
+A 32-bit logical address. A near pointer is an offset within a segment.
+Near pointers are used in either a flat or a segmented model of memory
+organization.
+
+Far Pointer:
+A 48-bit logical address of two components: a 16-bit segment selector
+component and a 32-bit offset component. Far pointers are used by
+applications programmers only when systems designers choose a
+segmented memory organization.
+
+String:
+A contiguous sequence of bytes, words, or doublewords. A string may
+contain from zero bytes to 2^(32) -1 bytes (4 gigabytes).
+
+Bit field:
+A contiguous sequence of bits. A bit field may begin at any bit position
+of any byte and may contain up to 32 bits.
+
+Bit string:
+A contiguous sequence of bits. A bit string may begin at any bit position
+of any byte and may contain up to 2^(32) -1 bits.
+
+BCD:
+A byte (unpacked) representation of a decimal digit in the range0 through
+9. Unpacked decimal numbers are stored as unsigned byte quantities. One
+digit is stored in each byte. The magnitude of the number is determined from
+the low-order half-byte; hexadecimal values 0-9 are valid and are
+interpreted as decimal numbers. The high-order half-byte must be zero for
+multiplication and division; it may contain any value for addition and
+subtraction.
+
+Packed BCD:
+A byte (packed) representation of two decimal digits, each in the range
+0 through 9. One digit is stored in each half-byte. The digit in the
+high-order half-byte is the most significant. Values 0-9 are valid in each
+half-byte. The range of a packed decimal byte is 0-99.
+
+Figure 2-4 graphically summarizes the data types supported by the 80386.
+
+
+Figure 2-1.  Two-Component Pointer
+
+                                                  
+                                   ║               ║
+                                   ╠═══════════════╣─┐
+       32            0             ║               ║ │
+      ╔═══════╪═══════╗   ╔═══╗    ╠═══════════════╣ │
+      ║    OFFSET     ╟───╢ + ╟───║    OPERAND    ║ │
+      ╚═══════╪═══════╝   ╚═══╝    ╠═══════════════╣ ├─ SELECTED SEGMENT
+                                  ║               ║ │
+           16    0          │      ║               ║ │
+          ╔═══════╗         │      ║               ║ │
+          ║SEGMENT╟─────────∙─────╠═══════════════╣─┘
+          ╚═══════╝                ║               ║
+                                   ║               ║
+                                   ║               ║
+                                                  
+
+
+Figure 2-2.  Fundamental Data Types
+
+  7              0
+ ╔═══════════════╗
+ ║     BYTE      ║  BYTE
+ ╚═══════════════╝
+
+  15              7              0
+ ╔═══════════════╤═══════════════╗
+ ║   HIGH BYTE   │   LOW BYTE    ║  WORD
+ ╚═══════════════╧═══════════════╝
+    address n+1      address n
+
+  31              23              15              7             0
+ ╔═══════════════╪═══════════════╪═══════════════╪══════════════╗
+ ║           HIGH WORD           │            LOW WORD          ║ DOUBLEWORD
+ ╚═══════════════╪═══════════════╪═══════════════╪══════════════╝
+    address n+3     address n+2     address n+1      address n
+
+
+Figure 2-3.  Bytes, Words, and Doublewords in Memory
+
+                  MEMORY
+       BYTE       VALUES
+All values in hexadecimal
+     ADDRESS   ╔══════════╗
+              E║          ║
+               ╠══════════╣──┐
+              D║    7A    ║  ├─ DOUBLE WORD AT ADDRESS A
+               ╠══════════╣─┐│  CONTAINS 7AFE0636
+              C║    FE    ║ ││
+               ╠══════════╣ ├─ WORD AT ADDRESS B
+              B║    06    ║ ││ CONTAINS FE06
+               ╠══════════╣─┘│
+              A║    36    ║  │
+               ╠══════════╣══╡
+              9║    1F    ║  ├─ WORD AT ADDRESS 9
+               ╠══════════╣──┘  CONTAINS IF
+              8║          ║
+               ╠══════════╣──┐
+              7║    23    ║  │
+               ╠══════════╣  ├─ WORD AT ADDRESS 6
+              6║    OB    ║  │  CONTAINS 23OB
+               ╠══════════╣──┘
+              5║          ║
+               ╠══════════╣
+              4║          ║
+               ╠══════════╣──┐
+              3║    74    ║  │
+               ╠══════════╣─┐├─ WORD AT ADDRESS 2
+              2║    CB    ║ ││  CONTAINS 74CB
+               ╠══════════╣──┘
+              1║    31    ║ ├── WORD AT ADDRESS 1
+               ╠══════════╣─┘   CONTAINS CB31
+              0║          ║
+               ╚══════════╝
+
+
+Figure 2-4.  80386 Data Types
+
+                                                           +1       0
+          7       0              7       0            15 14    8 7      0
+     BYTE ╔╤╤╤╤╤╤╤╗         BYTE ╔╤╤╤╤╤╤╤╗         WORD ╔╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╗
+  INTEGER ║│  │   ║      ORDINAL ║   │   ║      INTEGER ║│  │   │   │   ║
+          ╚╧══════╝              ╚═══════╝              ╚╧══════╧═══════╝
+  SIGN BIT┘└──────┘              └───────┘      SIGN BIT┘└MSB           │
+           MAGNITUDE             MAGNITUDE              └───────────────┘
+                                                            MAGNITUDE
+
+
+            +1       0                       +3     +2      +1       0
+         15              0               31            16 15             0
+    WORD ╔╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╗    DOUBLEWORD ╔╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╗
+ ORDINAL ║│  │   │   │   ║       INTEGER ║│  │   │   │   │   │   │   │   ║
+         ╚╧══════╧═══════╝               ╚╧══════╧═══════╧═══════╧═══════╝
+         │               │       SIGN BIT┘└MSB                           │
+         └───────────────┘               └───────────────────────────────┘
+             MAGNITUDE                              MAGNITUDE
+
+
+                           +3      +2      +1       0
+                        31                              0
+             DOUBLEWORD ╔╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╗
+                ORDINAL ║   │   │   │   │   │   │   │   ║
+                        ╚═══════╧═══════╧═══════╧═══════╝
+                        └───────────────────────────────┘
+                                    MAGNITUDE
+
+                           +N              +1       0
+                        7       0       7      0 7      0
+           BINARY CODED ╔╤╤╤╤╤╤╤╗       ╔╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╗
+          DECIMAL (BCD) ║   │   ║    ║   │   │   │   ║
+                        ╚═══════╝       ╚═══════╧═══════╝
+                           BCD             BCD     BCD
+                         DIGIT N         DIGIT 1  DIGIT 0
+
+                           +N              +1       0
+                        7       0       7      0 7      0
+                 PACKED ╔╤╤╤╤╤╤╤╗       ╔╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╗
+                    BCD ║   │   ║    ║   │   │   │   ║
+                        ╚═══════╝       ╚═══════╧═══════╝
+                        └───┘                       └───┘
+                        MOST                        LEAST
+                        SIGNIFICANT           SIGNIFICANT
+                        DIGIT                       DIGIT
+
+                           +N              +1       0
+                        7       0       7      0 7      0
+                   BYTE ╔╤╤╤╤╤╤╤╗       ╔╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╗
+                 STRING ║   │   ║    ║   │   │   │   ║
+                        ╚═══════╝       ╚═══════╧═══════╝
+
+                                              -2 GIGABYTES
+                +2 GIGABYTES                           210
+     BIT ╔╤╤╤╤════════════╤╤═══════  ════════════════╤╤╤╤╗
+  STRING ║││││            ││                         ││││║
+         ╚╧╧╧╧════════════╧╧════════  ═══════════════╧╧╧╧╝
+                         BIT 0
+
+               +3      +2      +1       0
+            31                              0
+NEAR 32-BIT ╔╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╗
+    POINTER ║   │   │   │   │   │   │   │   ║
+            ╚═══════╧═══════╧═══════╧═══════╝
+            └───────────────────────────────┘
+                             OFFSET
+
+              +5      +4      +3      +2      +1       0
+           48                                              0
+FAR 48-BIT ╔╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╗
+   POINTER ║   │   │   │   │   │   │   │   │   │   │   │   ║
+           ╚═══════╧═══════╧═══════╧═══════╧═══════╧═══════╝
+           └───────────────┴───────────────────────────────┘
+                SELECTOR                 OFFSET
+
+                  +5      +4      +3      +2      +1       0
+    32-BIT ╔╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╗
+ BIT FIELD ║   │   │   │   │   │   │   │   │   │   │   │   ║
+           ╚═══════╧═══════╧═══════╧═══════╧═══════╧═══════╝
+                   │───────── BIT FIELD ─────────│
+                             1 TO 32 BITS
+
+
+2.3  Registers
+
+The 80386 contains a total of sixteen registers that are of interest to the
+applications programmer. As Figure 2-5 shows, these registers may be
+grouped into these basic categories:
+
+  1.  General registers. These eight 32-bit general-purpose registers are
+      used primarily to contain operands for arithmetic and logical
+      operations.
+
+  2.  Segment registers. These special-purpose registers permit systems
+      software designers to choose either a flat or segmented model of
+      memory organization. These six registers determine, at any given time,
+      which segments of memory are currently addressable.
+
+  3.  Status and instruction registers. These special-purpose registers are
+      used to record and alter certain aspects of the 80386 processor state.
+
+
+2.3.1  General Registers
+
+The general registers of the 80386 are the 32-bit registers EAX, EBX, ECX,
+EDX, EBP, ESP, ESI, and EDI. These registers are used interchangeably to
+contain the operands of logical and arithmetic operations. They may also be
+used interchangeably for operands of address computations (except that ESP
+cannot be used as an index operand).
+
+As Figure 2-5 shows, the low-order word of each of these eight registers
+has a separate name and can be treated as a unit. This feature is useful for
+handling 16-bit data items and for compatibility with the 8086 and 80286
+processors. The word registers are named AX, BX, CX, DX, BP, SP, SI, and DI.
+
+Figure 2-5 also illustrates that each byte of the 16-bit registers AX, BX,
+CX, and DX has a separate name and can be treated as a unit. This feature is
+useful for handling characters and other 8-bit data items. The byte
+registers are named AH, BH, CH, and DH (high bytes); and AL, BL, CL, and DL
+(low bytes).
+
+All of the general-purpose registers are available for addressing
+calculations and for the results of most arithmetic and logical
+calculations; however, a few functions are dedicated to certain registers.
+By implicitly choosing registers for these functions, the 80386 architecture
+can encode instructions more compactly. The instructions that use specific
+registers include: double-precision multiply and divide, I/O, string
+instructions, translate, loop, variable shift and rotate, and stack
+operations.
+
+
+2.3.2  Segment Registers
+
+The segment registers of the 80386 give systems software designers the
+flexibility to choose among various models of memory organization.
+Implementation of memory models is the subject of Part II ── Systems
+Programming. Designers may choose a model in which applications programs do
+not need to modify segment registers, in which case applications programmers
+may skip this section.
+
+Complete programs generally consist of many different modules, each
+consisting of instructions and data. However, at any given time during
+program execution, only a small subset of a program's modules are actually
+in use. The 80386 architecture takes advantage of this by providing
+mechanisms to support direct access to the instructions and data of the
+current module's environment, with access to additional segments on demand.
+
+At any given instant, six segments of memory may be immediately accessible
+to an executing 80386 program. The segment registers CS, DS, SS, ES, FS, and
+GS are used to identify these six current segments. Each of these registers
+specifies a particular kind of segment, as characterized by the associated
+mnemonics ("code," "data," or "stack") shown in Figure 2-6. Each register
+uniquely determines one particular segment, from among the segments that
+make up the program, that is to be immediately accessible at highest speed.
+
+The segment containing the currently executing sequence of instructions is
+known as the current code segment; it is specified by means of the CS
+register. The 80386 fetches all instructions from this code segment, using
+as an offset the contents of the instruction pointer. CS is changed
+implicitly as the result of intersegment control-transfer instructions (for
+example, CALL and JMP), interrupts, and exceptions.
+
+Subroutine calls, parameters, and procedure activation records usually
+require that a region of memory be allocated for a stack. All stack
+operations use the SS register to locate the stack. Unlike CS, the SS
+register can be loaded explicitly, thereby permitting programmers to define
+stacks dynamically.
+
+The DS, ES, FS, and GS registers allow the specification of four data
+segments, each addressable by the currently executing program. Accessibility
+to four separate data areas helps programs efficiently access different
+types of data structures; for example, one data segment register can point
+to the data structures of the current module, another to the exported data
+of a higher-level module, another to a dynamically created data structure,
+and another to data shared with another task. An operand within a data
+segment is addressed by specifying its offset either directly in an
+instruction or indirectly via general registers.
+
+Depending on the structure of data (e.g., the way data is parceled into one
+or more segments), a program may require access to more than four data
+segments. To access additional segments, the DS, ES, FS, and GS registers
+can be changed under program control during the course of a program's
+execution. This simply requires that the program execute an instruction to
+load the appropriate segment register prior to executing instructions that
+access the data.
+
+The processor associates a base address with each segment selected by a
+segment register. To address an element within a segment, a 32-bit offset is
+added to the segment's base address. Once a segment is selected (by loading
+the segment selector into a segment register), a data manipulation
+instruction only needs to specify the offset. Simple rules define which
+segment register is used to form an address when only an offset is
+specified.
+
+
+Figure 2-5.  80386 Applications Register Set
+
+                              GENERAL REGISTERS
+
+  31                23                15                7               0
+ ╔═════════════════╪═════════════════╬═════════════════╧═════════════════╗
+ ║                                  EAX       AH       AX      AL        ║
+ ╠═════════════════╪═════════════════╬═════════════════╩═════════════════╣
+ ║                                  EDX       DH       DX      DL        ║
+ ╠═════════════════╪═════════════════╬═════════════════╩═════════════════╣
+ ║                                  ECX       CH       CX      CL        ║
+ ╠═════════════════╪═════════════════╬═════════════════╩═════════════════╣
+ ║                                  EBX       BH       BX      BL        ║
+ ╠═════════════════╪═════════════════╬═════════════════╩═════════════════╣
+ ║                                  EBP                BP                ║
+ ╠═════════════════╪═════════════════╬═════════════════╪═════════════════╣
+ ║                                  ESI                SI                ║
+ ╠═════════════════╪═════════════════╬═════════════════╪═════════════════╣
+ ║                                  EDI                DI                ║
+ ╠═════════════════╪═════════════════╬═════════════════╪═════════════════╣
+ ║                                  ESP                SP                ║
+ ╚═════════════════╪═════════════════╬═════════════════╪═════════════════╝
+
+
+                      15                7               0
+                     ╔═════════════════╪═════════════════╗
+                     ║         CS (CODE SEGMENT)         ║
+                     ╟─────────────────┼─────────────────╢
+                     ║         SS (STACK SEGMENT)        ║
+    SEGMENT          ╟─────────────────┼─────────────────╢
+    REGISTERS        ║         DS (DATA SEGMENT)         ║
+                     ╟─────────────────┼─────────────────╢
+                     ║         ES (DATA SEGMENT)         ║
+                     ╟─────────────────┼─────────────────╢
+                     ║         FS (DATA SEGMENT)         ║
+                     ╟─────────────────┼─────────────────╢
+                     ║         GS (DATA SEGMENT)         ║
+                     ╚═════════════════╪═════════════════╝
+
+
+                       STATUS AND INSTRUCTION REGISTERS
+
+     31               23                15                7              0
+   ╔═════════════════╪═════════════════╪═════════════════╪═════════════════╗
+   ║                                EFLAGS                                 ║
+   ╟───────────────────────────────────────────────────────────────────────╢
+   ║                        EIP (INSTRUCTION POINTER)                      ║
+   ╚═════════════════╪═════════════════╪═════════════════╪═════════════════╝
+
+
+Figure 2-6.  Use of Memory Segmentation
+
+     ╔════════════════╗                                ╔════════════════╗
+     ║     MODULE     ║                                ║     MODULE     ║
+     ║       A        ║──┐                        ┌──║       A        ║
+     ║      CODE      ║   │                        │   ║      DATA      ║
+     ╚════════════════╝   │  ╔══════════════════╗  │   ╚════════════════╝
+                          └──╢    CS (CODE)     ║  │
+                             ╠══════════════════╣  │
+     ╔════════════════╗   ┌──╢    SS (STACK)    ║  │   ╔════════════════╗
+     ║                ║   │  ╠══════════════════╣  │   ║      DATA      ║
+     ║     STACK      ║──┘  ║    DS (DATA)     ╟──┘┌─║   STRUCTURE    ║
+     ║                ║      ╠══════════════════╣   │  ║       1        ║
+     ╚════════════════╝      ║    ES (DATA)     ╟───┘  ╚════════════════╝
+                             ╠══════════════════╣
+                          ┌──╢    FS (DATA)     ║
+     ╔════════════════╗   │  ╠══════════════════╣      ╔════════════════╗
+     ║      DATA      ║   │  ║    GS (DATA)     ╟──┐   ║      DATA      ║
+     ║   STRUCTURE    ║──┘  ╚══════════════════╝  └──║   STRUCTURE    ║
+     ║       2        ║                                ║       3        ║
+     ╚════════════════╝                                ╚════════════════╝
+
+
+2.3.3  Stack Implementation
+
+Stack operations are facilitated by three registers:
+
+  1.  The stack segment (SS) register. Stacks are implemented in memory. A
+      system may have a number of stacks that is limited only by the maximum
+      number of segments. A stack may be up to 4 gigabytes long, the maximum
+      length of a segment. One stack is directly addressable at a time──the
+      one located by SS. This is the current stack, often referred to simply
+      as "the" stack. SS is used automatically by the processor for all
+      stack operations.
+
+  2.  The stack pointer (ESP) register. ESP points to the top of the
+      push-down stack (TOS). It is referenced implicitly by PUSH and POP
+      operations, subroutine calls and returns, and interrupt operations.
+      When an item is pushed onto the stack (see Figure 2-7), the processor
+      decrements ESP, then writes the item at the new TOS. When an item is
+      popped off the stack, the processor copies it from TOS, then
+      increments ESP. In other words, the stack grows down in memory toward
+      lesser addresses.
+
+  3.  The stack-frame base pointer (EBP) register. The EBP is the best
+      choice of register for accessing data structures, variables and
+      dynamically allocated work space within the stack. EBP is often used
+      to access elements on the stack relative to a fixed point on the stack
+      rather than relative to the current TOS. It typically identifies the
+      base address of the current stack frame established for the current
+      procedure. When EBP is used as the base register in an offset
+      calculation, the offset is calculated automatically in the current
+      stack segment (i.e., the segment currently selected by SS). Because
+      SS does not have to be explicitly specified, instruction encoding in
+      such cases is more efficient. EBP can also be used to index into
+      segments addressable via other segment registers.
+
+
+Figure 2-7.  80386 Stack
+
+     31                         0
+     ╔══════╪══════╪══════╪══════╗ ───────BOTTOM OF STACK
+     ║                           ║       (INITIAL ESP VALUE)
+     ╟══════╪══════╪══════╪══════╣
+     ║                           ║
+     ╠══════╪══════╪══════╪══════╣        
+     ║                           ║        │POP
+     ╠══════╪══════╪══════╪══════╣        │
+     ║                           ║        │
+     ╠══════╪══════╪══════╪══════╣        │      TOP OF     ╔═════════════╗
+     ║                           ║ ──────┼─────────────────╢     ESP     ║
+     ╠══════╪══════╪══════╪══════╣        │      STACK      ╚═════════════╝
+     ║                           ║        │
+     ║                           ║        │
+     ║                           ║        │PUSH
+     ║                           ║        
+
+
+2.3.4  Flags Register
+
+The flags register is a 32-bit register named EFLAGS. Figure 2-8 defines
+the bits within this register. The flags control certain operations and
+indicate the status of the 80386.
+
+The low-order 16 bits of EFLAGS is named FLAGS and can be treated as a
+unit. This feature is useful when executing 8086 and 80286 code, because
+this part of EFLAGS is identical to the FLAGS register of the 8086 and the
+80286.
+
+The flags may be considered in three groups: the status flags, the control
+flags, and the systems flags. Discussion of the systems flags is delayed
+until Part II.
+
+
+Figure 2-8.  EFLAGS Register  
+
+                                              16-BIT FLAGS REGISTER
+                                                         A
+                                     ┌───────────────────┴───────────────┐
+  31                  23                  15               7            0
+ ╔═══════════════════╪═══════════════╤═╤═╤═╤═╤═╪═╤═╤═╤═╤═╤═╤═╤═╤═╤═╤═╤═╤═╗
+ ║                                   │V│R│ │N│ IO│O│D│I│T│S│Z│ │A│ │P│ │C║
+ ║ 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 │ │ │0│ │   │ │ │ │ │ │ │0│ │0│ │1│ ║
+ ║                                   │M│F│ │T│ PL│F│F│F│F│F│F│ │F│ │F│ │F║
+ ╚═══════════════════╪═══════════════╧╤╧╤╧═╧╤╧═╪═╧╤╧╤╧╤╧╤╧╤╧╤╧═╧╤╧═╧╤╧═╧╤╝
+                                      │ │   │  │  │ │ │ │ │ │   │   │   │
+       VIRTUAL 8086 MODE───X──────────┘ │   │  │  │ │ │ │ │ │   │   │   │
+             RESUME FLAG───X────────────┘   │  │  │ │ │ │ │ │   │   │   │
+        NESTED TASK FLAG───X────────────────┘  │  │ │ │ │ │ │   │   │   │
+     I/O PRIVILEGE LEVEL───X───────────────────┘  │ │ │ │ │ │   │   │   │
+                OVERFLOW───S──────────────────────┘ │ │ │ │ │   │   │   │
+          DIRECTION FLAG───C────────────────────────┘ │ │ │ │   │   │   │
+        INTERRUPT ENABLE───X──────────────────────────┘ │ │ │   │   │   │
+               TRAP FLAG───S────────────────────────────┘ │ │   │   │   │
+               SIGN FLAG───S──────────────────────────────┘ │   │   │   │
+               ZERO FLAG───S────────────────────────────────┘   │   │   │
+         AUXILIARY CARRY───S────────────────────────────────────┘   │   │
+             PARITY FLAG───S────────────────────────────────────────┘   │
+              CARRY FLAG───S────────────────────────────────────────────┘
+
+          S = STATUS FLAG, C = CONTROL FLAG, X = SYSTEM FLAG
+
+          NOTE: 0 OR 1 INDICATES INTEL RESERVED. DO NOT DEFINE
+
+
+2.3.4.1  Status Flags
+
+The status flags of the EFLAGS register allow the results of one
+instruction to influence later instructions. The arithmetic instructions use
+OF, SF, ZF, AF, PF, and CF. The SCAS (Scan String), CMPS (Compare String),
+and LOOP instructions use ZF to signal that their operations are complete.
+There are instructions to set, clear, and complement CF before execution of
+an arithmetic instruction. Refer to Appendix C for definition of each
+status flag.
+
+
+2.3.4.2  Control Flag
+
+The control flag DF of the EFLAGS register controls string instructions.
+
+DF (Direction Flag, bit 10)
+
+  Setting DF causes string instructions to auto-decrement; that is, to
+  process strings from high addresses to low addresses. Clearing DF causes
+  string instructions to auto-increment, or to process strings from low
+  addresses to high addresses.
+
+
+2.3.4.3  Instruction Pointer
+
+The instruction pointer register (EIP) contains the offset address,
+relative to the start of the current code segment, of the next sequential
+instruction to be executed. The instruction pointer is not directly visible
+to the programmer; it is controlled implicitly by control-transfer
+instructions, interrupts, and exceptions.
+
+As Figure 2-9 shows, the low-order 16 bits of EIP is named IP and can be
+used by the processor as a unit. This feature is useful when executing
+instructions designed for the 8086 and 80286 processors.
+
+
+Figure 2-9.  Instruction Pointer Register
+
+                                                 16-BIT IP REGISTER
+                                       ┌──────────────────┴────────────────┐
+    31                23                15                7               0
+   ╔═════════════════╪═════════════════╪═════════════════╪═════════════════╗
+   ║                       EIP (INSTRUCTION POINTER)                       ║
+   ╚═════════════════╪═════════════════╪═════════════════╪═════════════════╝
+
+
+2.4  Instruction Format
+
+The information encoded in an 80386 instruction includes a specification of
+the operation to be performed, the type of the operands to be manipulated,
+and the location of these operands. If an operand is located in memory, the
+instruction must also select, explicitly or implicitly, which of the
+currently addressable segments contains the operand.
+
+80386 instructions are composed of various elements and have various
+formats. The exact format of instructions is shown in Appendix B; the
+elements of instructions are described below. Of these instruction elements,
+only one, the opcode, is always present. The other elements may or may not
+be present, depending on the particular operation involved and on the
+location and type of the operands. The elements of an instruction, in order
+of occurrence are as follows:
+
+  ■  Prefixes ── one or more bytes preceding an instruction that modify the
+     operation of the instruction. The following types of prefixes can be
+     used by applications programs:
+
+     1.  Segment override ── explicitly specifies which segment register an
+         instruction should use, thereby overriding the default
+         segment-register selection used by the 80386 for that instruction.
+
+     2.  Address size ── switches between 32-bit and 16-bit address 
+         generation.
+
+     3.  Operand size ── switches between 32-bit and 16-bit operands.
+
+     4.  Repeat ── used with a string instruction to cause the instruction
+         to act on each element of the string.
+
+  ■  Opcode ── specifies the operation performed by the instruction. Some
+     operations have several different opcodes, each specifying a different
+     variant of the operation.
+
+  ■  Register specifier ── an instruction may specify one or two register
+     operands. Register specifiers may occur either in the same byte as the
+     opcode or in the same byte as the addressing-mode specifier.
+
+  ■  Addressing-mode specifier ── when present, specifies whether an operand
+     is a register or memory location; if in memory, specifies whether a
+     displacement, a base register, an index register, and scaling are to be
+     used.
+
+  ■  SIB (scale, index, base) byte ── when the addressing-mode specifier
+     indicates that an index register will be used to compute the address of
+     an operand, an SIB byte is included in the instruction to encode the
+     base register, the index register, and a scaling factor.
+
+  ■  Displacement ── when the addressing-mode specifier indicates that a
+     displacement will be used to compute the address of an operand, the
+     displacement is encoded in the instruction. A displacement is a signed
+     integer of 32, 16, or eight bits. The eight-bit form is used in the
+     common case when the displacement is sufficiently small. The processor
+     extends an eight-bit displacement to 16 or 32 bits, taking into
+     account the sign.
+
+  ■  Immediate operand ── when present, directly provides the value of an
+     operand of the instruction. Immediate operands may be 8, 16, or 32 bits
+     wide. In cases where an eight-bit immediate operand is combined in some
+     way with a 16- or 32-bit operand, the processor automatically extends
+     the size of the eight-bit operand, taking into account the sign.
+
+
+2.5  Operand Selection
+
+An instruction can act on zero or more operands, which are the data
+manipulated by the instruction. An example of a zero-operand instruction is
+NOP (no operation). An operand can be in any of these locations:
+
+  ■  In the instruction itself (an immediate operand)
+
+  ■  In a register (EAX, EBX, ECX, EDX, ESI, EDI, ESP, or EBP in the case
+     of 32-bit operands; AX, BX, CX, DX, SI, DI, SP, or BP in the case of
+     16-bit operands; AH, AL, BH, BL, CH, CL, DH, or DL in the case of 8-bit
+     operands; the segment registers; or the EFLAGS register for flag
+     operations)
+
+  ■  In memory
+
+  ■  At an I/O port
+
+Immediate operands and operands in registers can be accessed more rapidly
+than operands in memory since memory operands must be fetched from memory.
+Register operands are available in the CPU. Immediate operands are also
+available in the CPU, because they are prefetched as part of the
+instruction.
+
+Of the instructions that have operands, some specify operands implicitly;
+others specify operands explicitly; still others use a combination of
+implicit and explicit specification; for example:
+
+Implicit operand: AAM
+
+  By definition, AAM (ASCII adjust for multiplication) operates on the
+  contents of the AX register.
+
+Explicit operand: XCHG EAX, EBX
+
+  The operands to be exchanged are encoded in the instruction after the
+  opcode.
+
+Implicit and explicit operands: PUSH COUNTER
+
+  The memory variable COUNTER (the explicit operand) is copied to the top of
+  the stack (the implicit operand).
+
+Note that most instructions have implicit operands. All arithmetic
+instructions, for example, update the EFLAGS register.
+
+An 80386 instruction can explicitly reference one or two operands.
+Two-operand instructions, such as MOV, ADD, XOR, etc., generally overwrite
+one of the two participating operands with the result. A distinction can
+thus be made between the source operand (the one unaffected by the
+operation) and the destination operand (the one overwritten by the result).
+
+For most instructions, one of the two explicitly specified operands──either
+the source or the destination──can be either in a register or in memory.
+The other operand must be in a register or be an immediate source operand.
+Thus, the explicit two-operand instructions of the 80386 permit operations
+of the following kinds:
+
+  ■  Register-to-register
+  ■  Register-to-memory
+  ■  Memory-to-register
+  ■  Immediate-to-register
+  ■  Immediate-to-memory
+
+Certain string instructions and stack manipulation instructions, however,
+transfer data from memory to memory. Both operands of some string
+instructions are in memory and are implicitly specified. Push and pop stack
+operations allow transfer between memory operands and the memory-based
+stack.
+
+
+2.5.1  Immediate Operands
+
+Certain instructions use data from the instruction itself as one (and
+sometimes two) of the operands. Such an operand is called an immediate
+operand. The operand may be 32-, 16-, or 8-bits long. For example:
+
+SHR PATTERN, 2
+
+One byte of the instruction holds the value 2, the number of bits by which
+to shift the variable PATTERN.
+
+TEST PATTERN, 0FFFF00FFH
+
+A doubleword of the instruction holds the mask that is used to test the
+variable PATTERN.
+
+
+2.5.2  Register Operands
+
+Operands may be located in one of the 32-bit general registers (EAX, EBX,
+ECX, EDX, ESI, EDI, ESP, or EBP), in one of the 16-bit general registers
+(AX, BX, CX, DX, SI, DI, SP, or BP), or in one of the 8-bit general
+registers (AH, BH, CH, DH, AL, BL, CL,or DL).
+
+The 80386 has instructions for referencing the segment registers (CS, DS,
+ES, SS, FS, GS). These instructions are used by applications programs only
+if systems designers have chosen a segmented memory model.
+
+The 80386 also has instructions for referring to the flag register. The
+flags may be stored on the stack and restored from the stack. Certain
+instructions change the commonly modified flags directly in the EFLAGS
+register. Other flags that are seldom modified can be modified indirectly
+via the flags image in the stack.
+
+
+2.5.3  Memory Operands
+
+Data-manipulation instructions that address operands in memory must specify
+(either directly or indirectly) the segment that contains the operand and
+the offset of the operand within the segment. However, for speed and compact
+instruction encoding, segment selectors are stored in the high speed segment
+registers. Therefore, data-manipulation instructions need to specify only
+the desired segment register and an offset in order to address a memory
+operand.
+
+An 80386 data-manipulation instruction that accesses memory uses one of the
+following methods for specifying the offset of a memory operand within its
+segment:
+
+  1.  Most data-manipulation instructions that access memory contain a byte
+      that explicitly specifies the addressing method for the operand. A
+      byte, known as the modR/M byte, follows the opcode and specifies
+      whether the operand is in a register or in memory. If the operand is
+      in memory, the address is computed from a segment register and any of
+      the following values: a base register, an index register, a scaling
+      factor, a displacement. When an index register is used, the modR/M
+      byte is also followed by another byte that identifies the index
+      register and scaling factor. This addressing method is the
+      mostflexible.
+
+  2.  A few data-manipulation instructions implicitly use specialized
+      addressing methods:
+
+      ■   For a few short forms of MOV that implicitly use the EAX register,
+          the offset of the operand is coded as a doubleword in the
+          instruction. No base register, index register, or scaling factor
+          are used.
+
+      ■   String operations implicitly address memory via DS:ESI, (MOVS,
+          CMPS, OUTS, LODS, SCAS) or via ES:EDI (MOVS, CMPS, INS, STOS).
+
+      ■   Stack operations implicitly address operands via SS:ESP
+          registers; e.g., PUSH, POP, PUSHA, PUSHAD, POPA, POPAD, PUSHF,
+          PUSHFD, POPF, POPFD, CALL, RET, IRET, IRETD, exceptions, and
+          interrupts.
+
+
+2.5.3.1  Segment Selection
+
+Data-manipulation instructions need not explicitly specify which segment
+register is used. For all of these instructions, specification of a segment
+register is optional. For all memory accesses, if a segment is not
+explicitly specified by the instruction, the processor automatically chooses
+a segment register according to the rules of Table 2-1. (If systems
+designers have chosen a flat model of memory organization, the segment
+registers and the rules that the processor uses in choosing them are not
+apparent to applications programs.)
+
+There is a close connection between the kind of memory reference and the
+segment in which that operand resides. As a rule, a memory reference implies
+the current data segment (i.e., the implicit segment selector is in DS).
+However, ESP and EBP are used to access items on the stack; therefore, when
+the ESP or EBP register is used as a base register, the current stack
+segment is implied (i.e., SS contains the selector).
+
+Special instruction prefix elements may be used to override the default
+segment selection. Segment-override prefixes allow an explicit segment
+selection. The 80386 has a segment-override prefix for each of the segment
+registers. Only in the following special cases is there an implied segment
+selection that a segment prefix cannot override:
+
+  ■  The use of ES for destination strings in string instructions.
+  ■  The use of SS in stack instructions.
+  ■  The use of CS for instruction fetches.
+
+
+Table 2-1. Default Segment Register Selection Rules
+
+Memory Reference Needed  Segment     Implicit Segment Selection Rule
+                         Register
+                         Used
+
+Instructions             Code (CS)   Automatic with instruction prefetch
+Stack                    Stack (SS)  All stack pushes and pops. Any
+                                     memory reference that uses ESP or
+                                     EBP as a base register.
+Local Data               Data (DS)   All data references except when
+                                     relative to stack or string 
+                                     destination.
+Destination Strings      Extra (ES)  Destination of string instructions.
+
+
+2.5.3.2  Effective-Address Computation
+
+The modR/M byte provides the most flexible of the addressing methods, and
+instructions that require a modR/M byte as the second byte of the
+instruction are the most common in the 80386 instruction set. For memory
+operands defined by modR/M, the offset within the desired segment is
+calculated by taking the sum of up to three components:
+
+  ■  A displacement element in the instruction.
+
+  ■  A base register.
+
+  ■  An index register. The index register may be automatically multiplied
+     by a scaling factor of 2, 4, or 8.
+
+The offset that results from adding these components is called an effective
+address. Each of these components of an effective address may have either a
+positive or negative value. If the sum of all the components exceeds 2^(32),
+the effective address is truncated to 32 bits.Figure 2-10 illustrates the
+full set of possibilities for modR/M addressing.
+
+The displacement component, because it is encoded in the instruction, is
+useful for fixed aspects of addressing; for example:
+
+  ■  Location of simple scalar operands.
+  ■  Beginning of a statically allocated array.
+  ■  Offset of an item within a record.
+
+The base and index components have similar functions. Both utilize the same
+set of general registers. Both can be used for aspects of addressing that
+are determined dynamically; for example:
+
+  ■  Location of procedure parameters and local variables in stack.
+
+  ■  The beginning of one record among several occurrences of the same
+     record type or in an array of records.
+
+  ■  The beginning of one dimension of multiple dimension array.
+
+  ■  The beginning of a dynamically allocated array.
+
+The uses of general registers as base or index components differ in the
+following respects:
+
+  ■  ESP cannot be used as an index register.
+
+  ■  When ESP or EBP is used as the base register, the default segment is
+     the one selected by SS. In all other cases the default segment is DS.
+
+The scaling factor permits efficient indexing into an array in the common
+cases when array elements are 2, 4, or 8 bytes wide. The shifting of the
+index register is done by the processor at the time the address is evaluated
+with no performance loss. This eliminates the need for a separate shift or
+multiply instruction.
+
+The base, index, and displacement components may be used in any
+combination; any of these components may be null. A scale factor can be used
+only when an index is also used. Each possible combination is useful for
+data structures commonly used by programmers in high-level languages and
+assembly languages. Following are possible uses for some of the various
+combinations of address components.
+
+DISPLACEMENT
+
+   The displacement alone indicates the offset of the operand. This
+   combination is used to directly address a statically allocated scalar
+   operand. An 8-bit, 16-bit, or 32-bit displacement can be used.
+
+BASE
+
+   The offset of the operand is specified indirectly in one of the general
+   registers, as for "based" variables.
+
+BASE + DISPLACEMENT
+
+   A register and a displacement can be used together for two distinct
+   purposes:
+
+   1.  Index into static array when element size is not 2, 4, or 8 bytes.
+       The displacement component encodes the offset of the beginning of
+       the array. The register holds the results of a calculation to
+       determine the offset of a specific element within the array.
+
+   2.  Access item of a record. The displacement component locates an
+       item within record. The base register selects one of several
+       occurrences of record, thereby providing a compact encoding for
+       this common function.
+
+   An important special case of this combination, is to access parameters
+   in the procedure activation record in the stack.  In this case, EBP is
+   the best choice for the base register, because when EBP is used as a
+   base register, the processor automatically uses the stack segment
+   register (SS) to locate the operand, thereby providing a compact
+   encoding for this common function.
+
+(INDEX * SCALE) + DISPLACEMENT
+
+   This combination provides efficient indexing into a static array when
+   the element size is 2, 4, or 8 bytes. The displacement addresses the
+   beginning of the array, the index register holds the subscript of the
+   desired array element, and the processor automatically converts the
+   subscript into an index by applying the scaling factor.
+
+BASE + INDEX + DISPLACEMENT
+
+   Two registers used together support either a two-dimensional array (the
+   displacement determining the beginning of the array) or one of several
+   instances of an array of records (the displacement indicating an item
+   in the record).
+
+BASE + (INDEX * SCALE) + DISPLACEMENT
+
+   This combination provides efficient indexing of a two-dimensional array
+   when the elements of the array are 2, 4, or 8 bytes wide.
+
+
+Figure 2-10.  Effective Address Computation
+
+      SEGMENT +    BASE   +    (INDEX * SCALE)  +     DISPLACEMENT
+
+                 ┌     ┐
+                 │ --- │     ┌     ┐     ┌   ┐
+      ┌    ┐     │ EAX │     │ EAX │     │ 1 │
+      │ CS │     │ ECX │     │ ECX │     │   │     ┌                     ┐
+      │ SS │     │ EDX │     │ EDX │     │ 2 │     │     NO DISPLACEMENT │
+     ─┤ DS ├─ + ─┤ EBX ├─ + ─┤ EBX ├─ * ─┤   ├─ + ─┤  8-BIT DISPLACEMENT ├─
+      │ ES │     │ ESP │     │ --- │     │ 4 │     │ 32-BIT DISPLACEMENT │
+      │ FS │     │ EBP │     │ EBP │     │   │     └                     ┘
+      │ GS │     │ ESI │     │ ESI │     │ 6 │
+      └    ┘     │ EDI │     │ EDI │     └   ┘
+                 └     ┘     └     ┘
+
+
+2.6  Interrupts and Exceptions
+
+The 80386 has two mechanisms for interrupting program execution:
+
+  1.  Exceptions are synchronous events that are the responses of the CPU
+      to certain conditions detected during the execution of an instruction.
+
+  2.  Interrupts are asynchronous events typically triggered by external
+      devices needing attention.
+
+Interrupts and exceptions are alike in that both cause the processor to
+temporarily suspend its present program execution in order to execute a
+program of higher priority. The major distinction between these two kinds of
+interrupts is their origin. An exception is always reproducible by
+re-executing with the program and data that caused the exception, whereas an
+interrupt is generally independent of the currently executing program.
+
+Application programmers are not normally concerned with servicing
+interrupts. More information on interrupts for systems programmers may be
+found in Chapter 9. Certain exceptions, however, are of interest to
+applications programmers, and many operating systems give applications
+programs the opportunity to service these exceptions. However, the operating
+system itself defines the interface between the applications programs and
+the exception mechanism of the 80386.
+
+Table 2-2 highlights the exceptions that may be of interest to applications
+programmers.
+
+  ■  A divide error exception results when the instruction DIV or IDIV is
+     executed with a zero denominator or when the quotient is too large for
+     the destination operand. (Refer to Chapter 3 for a discussion of DIV
+     and IDIV.)
+
+  ■  The debug exception may be reflected back to an applications program
+     if it results from the trap flag (TF).
+
+  ■  A breakpoint exception results when the instruction INT 3 is executed.
+     This instruction is used by some debuggers to stop program execution at
+     specific points.
+
+  ■  An overflow exception results when the INTO instruction is executed
+     and the OF (overflow) flag is set (after an arithmetic operation that
+     set the OF flag). (Refer to Chapter 3 for a discussion of INTO).
+
+  ■  A bounds check exception results when the BOUND instruction is
+     executed and the array index it checks falls outside the bounds of the
+     array. (Refer to Chapter 3 for a discussion of the BOUND instruction.)
+
+  ■  Invalid opcodes may be used by some applications to extend the
+     instruction set. In such a case, the invalid opcode exception presents
+     an opportunity to emulate the opcode.
+
+  ■  The "coprocessor not available" exception occurs if the program
+     contains instructions for a coprocessor, but no coprocessor is present
+     in the system.
+
+  ■  A coprocessor error is generated when a coprocessor detects an illegal
+     operation.
+
+The instruction INT generates an interrupt whenever it is executed; the
+processor treats this interrupt as an exception. The effects of this
+interrupt (and the effects of all other exceptions) are determined by
+exception handler routines provided by the application program or as part of
+the systems software (provided by systems programmers). The INT instruction
+itself is discussed in Chapter 3. Refer to Chapter 9 for a more complete
+description of exceptions.
+
+
+Table 2-2. 80386 Reserved Exceptions and Interrupts
+
+Vector Number      Description
+
+0                  Divide Error
+1                  Debug Exceptions
+2                  NMI Interrupt
+3                  Breakpoint
+4                  INTO Detected Overflow
+5                  BOUND Range Exceeded
+6                  Invalid Opcode
+7                  Coprocessor Not Available
+8                  Double Exception
+9                  Coprocessor Segment Overrun
+10                 Invalid Task State Segment
+11                 Segment Not Present
+12                 Stack Fault
+13                 General Protection
+14                 Page Fault
+15                 (reserved)
+16                 Coprocessor Error
+17-32              (reserved)
+
+
+Chapter 3  Applications Instruction Set
+
+────────────────────────────────────────────────────────────────────────────
+
+This chapter presents an overview of the instructions which programmers can
+use to write application software for the 80386 executing in protected
+virtual-address mode. The instructions are grouped by categories of related
+functions.
+
+The instructions not discussed in this chapter are those that are normally
+used only by operating-system programmers. Part II describes the operation
+of these instructions.
+
+The descriptions in this chapter assume that the 80386 is operating in
+protected mode with 32-bit addressing in effect; however, all instructions
+discussed are also available when 16-bit addressing is in effect in
+protected mode, real mode, or virtual 8086 mode. For any differences of
+operation that exist in the various modes, refer to Chapter 13,
+Chapter 14, or Chapter 15.
+
+The instruction dictionary in Chapter 17 contains more detailed
+descriptions of all instructions, including encoding, operation, timing,
+effect on flags, and exceptions.
+
+
+3.1  Data Movement Instructions
+
+These instructions provide convenient methods for moving bytes, words, or
+doublewords of data between memory and the registers of the base
+architecture. They fall into the following classes:
+
+  1.  General-purpose data movement instructions.
+  2.  Stack manipulation instructions.
+  3.  Type-conversion instructions.
+
+
+3.1.1  General-Purpose Data Movement Instructions
+
+MOV (Move) transfers a byte, word, or doubleword from the source operand to
+the destination operand. The MOV instruction is useful for transferring data
+along any of these paths
+There are also variants of MOV that operate on segment registers.  These
+are covered in a later section of this chapter.:
+
+  ■  To a register from memory
+  ■  To memory from a register
+  ■  Between general registers
+  ■  Immediate data to a register
+  ■  Immediate data to a memory
+
+The MOV instruction cannot move from memory to memory or from segment
+register to segment register are not allowed. Memory-to-memory moves can be
+performed, however, by the string move instruction MOVS.
+
+XCHG (Exchange) swaps the contents of two operands. This instruction takes
+the place of three MOV instructions. It does not require a temporary
+location to save the contents of one operand while load the other is being
+loaded. XCHG is especially useful for implementing semaphores or similar
+data structures for process synchronization.
+
+The XCHG instruction can swap two byte operands, two word operands, or two
+doubleword operands. The operands for the XCHG instruction may be two
+register operands, or a register operand with a memory operand. When used
+with a memory operand, XCHG automatically activates the LOCK signal. (Refer
+to Chapter 11 for more information on the bus lock.)
+
+
+3.1.2  Stack Manipulation Instructions
+
+PUSH (Push) decrements the stack pointer (ESP), then transfers the source
+operand to the top of stack indicated by ESP (see Figure 3-1). PUSH is
+often used to place parameters on the stack before calling a procedure; it
+is also the basic means of storing temporary variables on the stack. The
+PUSH instruction operates on memory operands, immediate operands, and
+register operands (including segment registers).
+
+PUSHA (Push All Registers) saves the contents of the eight general
+registers on the stack (see Figure 3-2). This instruction simplifies
+procedure calls by reducing the number of instructions required to retain
+the contents of the general registers for use in a procedure. The processor
+pushes the general registers on the stack in the following order: EAX, ECX,
+EDX, EBX, the initial value of ESP before EAX was pushed, EBP, ESI, and
+EDI. PUSHA is complemented by the POPA instruction.
+
+POP (Pop) transfers the word or doubleword at the current top of stack
+(indicated by ESP) to the destination operand, and then increments ESP to
+point to the new top of stack. See Figure 3-3. POP moves information from
+the stack to a general register, or to memory
+There are also a variant of POP that operates on segment registers. This
+is covered in a later section of this chapter..
+
+POPA (Pop All Registers) restores the registers saved on the stack by
+PUSHA, except that it ignores the saved value of ESP. See Figure 3-4.
+
+
+Figure 3-1.  PUSH
+
+       D  O        BEFORE PUSH                  AFTER PUSH
+       I  F      31          0             31          0 
+       R        ║               ║           ║               ║
+       E  E     ╠═══════╪═══════╣           ╠═══════╪═══════╣
+       C  X     ║▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒║           ║▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒║
+       T  P     ╠═══════╪═══════╣           ╠═══════╪═══════╣
+       I  A     ║▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒║           ║▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒║
+       O  N     ╠═══════╪═══════╣──ESP     ╠═══════╪═══════╣
+       N  S     ║               ║           ║    OPERAND    ║
+          I     ╠═══════╪═══════╣           ╠═══════╪═══════╣──ESP
+        │ O     ║               ║           ║               ║
+        │ N     ╠═══════╪═══════╣           ╠═══════╪═══════╣
+        │       ║               ║           ║               ║
+               ╠═══════╪═══════╣           ╠═══════╪═══════╣
+                ║               ║           ║               ║
+                                                         
+
+
+Figure 3-2.  PUSHA
+
+                   BEFORE PUSHA                AFTER PUSHA
+                 31          0             31          0 
+         D  O   ║               ║           ║               ║
+         I  F   ╠═══════╪═══════╣           ╠═══════╪═══════╣
+         R      ║▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒║           ║▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒║
+         E  E   ╠═══════╪═══════╣           ╠═══════╪═══════╣
+         C  X   ║▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒║           ║▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒║
+         T  P   ╠═══════╪═══════╣──ESP     ╠═══════╪═══════╣
+         I  A   ║               ║           ║      EAX      ║
+         O  N   ╠═══════╪═══════╣           ╠═══════╪═══════╣
+         N  S   ║               ║           ║      ECX      ║
+            I   ╠═══════╪═══════╣           ╠═══════╪═══════╣
+          │ O   ║               ║           ║      EDX      ║
+          │ N   ╠═══════╪═══════╣           ╠═══════╪═══════╣
+          │     ║               ║           ║      EBX      ║
+               ╠═══════╪═══════╣           ╠═══════╪═══════╣
+                ║               ║           ║    OLD ESP    ║
+                ╠═══════╪═══════╣           ╠═══════╪═══════╣
+                ║               ║           ║      EBP      ║
+                ╠═══════╪═══════╣           ╠═══════╪═══════╣
+                ║               ║           ║      ESI      ║
+                ╠═══════╪═══════╣           ╠═══════╪═══════╣
+                ║               ║           ║      EDI      ║
+                ╠═══════╪═══════╣           ╠═══════╪═══════╣──ESP
+                ║               ║           ║               ║
+                ╠═══════╪═══════╣           ╠═══════╪═══════╣
+                ║               ║           ║               ║
+                                                         
+
+
+3.1.3  Type Conversion Instructions
+
+The type conversion instructions convert bytes into words, words into
+doublewords, and doublewords into 64-bit items (quad-words). These
+instructions are especially useful for converting signed integers, because
+they automatically fill the extra bits of the larger item with the value of
+the sign bit of the smaller item. This kind of conversion, illustrated by
+Figure 3-5, is called sign extension.
+
+There are two classes of type conversion instructions:
+
+  1.  The forms CWD, CDQ, CBW, and CWDE which operate only on data in the
+      EAX register.
+
+  2.  The forms MOVSX and MOVZX, which permit one operand to be in any
+      general register while permitting the other operand to be in memory or
+      in a register.
+
+CWD (Convert Word to Doubleword) and CDQ (Convert Doubleword to Quad-Word)
+double the size of the source operand. CWD extends the sign of the
+word in register AX throughout register DX. CDQ extends the sign of the
+doubleword in EAX throughout EDX. CWD can be used to produce a doubleword
+dividend from a word before a word division, and CDQ can be used to produce
+a quad-word dividend from a doubleword before doubleword division.
+
+CBW (Convert Byte to Word) extends the sign of the byte in register AL
+throughout AX.
+
+CWDE (Convert Word to Doubleword Extended) extends the sign of the word in
+register AX throughout EAX.
+
+MOVSX (Move with Sign Extension) sign-extends an 8-bit value to a 16-bit
+value and a 8- or 16-bit value to 32-bit value.
+
+MOVZX (Move with Zero Extension) extends an 8-bit value to a 16-bit value
+and an 8- or 16-bit value to 32-bit value by inserting high-order zeros.
+
+
+Figure 3-3.  POP
+
+       D  O         BEFORE POP                  AFTER POP
+       I  F      31          0             31          0 
+       R        ║               ║           ║               ║
+       E  E     ╠═══════╪═══════╣           ╠═══════╪═══════╣
+       C  X     ║▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒║           ║▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒║
+       T  P     ╠═══════╪═══════╣           ╠═══════╪═══════╣
+       I  A     ║▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒║           ║▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒║
+       O  N     ╠═══════╪═══════╣           ╠═══════╪═══════╣──ESP
+       N  S     ║    OPERAND    ║           ║               ║
+          I     ╠═══════╪═══════╣──ESP     ╠═══════╪═══════╣
+        │ O     ║               ║           ║               ║
+        │ N     ╠═══════╪═══════╣           ╠═══════╪═══════╣
+        │       ║               ║           ║               ║
+               ╠═══════╪═══════╣           ╠═══════╪═══════╣
+                ║               ║           ║               ║
+                                                         
+
+
+Figure 3-4.  POPA
+
+                   BEFORE POPA                  AFTER POPA
+                 31          0             31          0 
+         D  O   ║               ║           ║               ║
+         I  F   ╠═══════╪═══════╣           ╠═══════╪═══════╣
+         R      ║▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒║           ║▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒║
+         E  E   ╠═══════╪═══════╣           ╠═══════╪═══════╣
+         C  X   ║▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒║           ║▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒║
+         T  P   ╠═══════╪═══════╣           ╠═══════╪═══════╣──ESP
+         I  A   ║      EAX      ║           ║               ║
+         O  N   ╠═══════╪═══════╣           ╠═══════╪═══════╣
+         N  S   ║      ECX      ║           ║               ║
+            I   ╠═══════╪═══════╣           ╠═══════╪═══════╣
+          │ O   ║      EDX      ║           ║               ║
+          │ N   ╠═══════╪═══════╣           ╠═══════╪═══════╣
+          │     ║      EBX      ║           ║               ║
+               ╠═══════╪═══════╣           ╠═══════╪═══════╣
+                ║      ESP      ║           ║               ║
+                ╠═══════╪═══════╣           ╠═══════╪═══════╣
+                ║      EPB      ║           ║               ║
+                ╠═══════╪═══════╣           ╠═══════╪═══════╣
+                ║      ESI      ║           ║               ║
+                ╠═══════╪═══════╣           ╠═══════╪═══════╣
+                ║      EDI      ║           ║               ║
+                ╠═══════╪═══════╣──ESP     ╠═══════╪═══════╣
+                ║               ║           ║               ║
+                ╠═══════╪═══════╣           ╠═══════╪═══════╣
+                ║               ║           ║               ║
+                                                         
+
+
+Figure 3-5.  Sign Extension
+
+                                    15                7               0
+                                    ╔═╦══════════════╪════════════════╗
+     BEFORE SIGN EXTENSION─────────║S║ N N N N N N N N N N N N N N N ║
+                                    ╚═╩══════════════╪════════════════╝
+     AFTER SIGN EXTENSION──────┐
+                               │
+    31               23             15              7              0
+    ╔═╦═════════════╪═══════════════╪═══════════════╪═══════════════╗
+    ║S║S S S S S S S S S S S S S S S S N N N N N N N N N N N N N N N║
+    ╚═╩═════════════╪═══════════════╪═══════════════╪═══════════════╝
+
+
+3.2  Binary Arithmetic Instructions
+
+The arithmetic instructions of the 80386 processor simplify the
+manipulation of numeric data that is encoded in binary. Operations include
+the standard add, subtract, multiply, and divide as well as increment,
+decrement, compare, and change sign. Both signed and unsigned binary
+integers are supported. The binary arithmetic instructions may also be used
+as one step in the process of performing arithmetic on decimal integers.
+
+Many of the arithmetic instructions operate on both signed and unsigned
+integers. These instructions update the flags ZF, CF, SF, and OF in such a
+manner that subsequent instructions can interpret the results of the
+arithmetic as either signed or unsigned. CF contains information relevant to
+unsigned integers; SF and OF contain information relevant to signed
+integers. ZF is relevant to both signed and unsigned integers; ZF is set
+when all bits of the result are zero.
+
+If the integer is unsigned, CF may be tested after one of these arithmetic
+operations to determine whether the operation required a carry or borrow of
+a one-bit in the high-order position of the destination operand. CF is set
+if a one-bit was carried out of the high-order position (addition
+instructions ADD, ADC, AAA, and DAA) or if a one-bit was carried (i.e.
+borrowed) into the high-order bit (subtraction instructions SUB, SBB, AAS,
+DAS, CMP, and NEG).
+
+If the integer is signed, both SF and OF should be tested. SF always has
+the same value as the sign bit of the result. The most significant bit (MSB)
+of a signed integer is the bit next to the sign──bit 6 of a byte, bit 14 of
+a word, or bit 30 of a doubleword. OF is set in either of these cases:
+
+  ■  A one-bit was carried out of the MSB into the sign bit but no one bit
+     was carried out of the sign bit (addition instructions ADD, ADC, INC,
+     AAA, and DAA). In other words, the result was greater than the greatest
+     positive number that could be contained in the destination operand.
+
+  ■  A one-bit was carried from the sign bit into the MSB but no one bit
+     was carried into the sign bit (subtraction instructions SUB, SBB, DEC,
+     AAS, DAS, CMP, and NEG). In other words, the result was smaller that
+     the smallest negative number that could be contained in the destination
+     operand.
+
+These status flags are tested by executing one of the two families of
+conditional instructions: Jcc (jump on condition cc) or SETcc (byte set on
+condition).
+
+
+3.2.1  Addition and Subtraction Instructions
+
+ADD (Add Integers) replaces the destination operand with the sum of the
+source and destination operands. Sets CF if overflow.
+
+ADC (Add Integers with Carry) sums the operands, adds one if CF is set, and
+replaces the destination operand with the result. If CF is cleared, ADC
+performs the same operation as the ADD instruction. An ADD followed by
+multiple ADC instructions can be used to add numbers longer than 32 bits.
+
+INC (Increment) adds one to the destination operand. INC does not affect
+CF. Use ADD with an immediate value of 1 if an increment that updates carry
+(CF) is needed.
+
+SUB (Subtract Integers) subtracts the source operand from the destination
+operand and replaces the destination operand with the result. If a borrow is
+required, the CF is set. The operands may be signed or unsigned bytes,
+words, or doublewords.
+
+SBB (Subtract Integers with Borrow) subtracts the source operand from the
+destination operand, subtracts 1 if CF is set, and returns the result to the
+destination operand. If CF is cleared, SBB performs the same operation as
+SUB. SUB followed by multiple SBB instructions may be used to subtract
+numbers longer than 32 bits. If CF is cleared, SBB performs the same
+operation as SUB.
+
+DEC (Decrement) subtracts 1 from the destination operand. DEC does not
+update CF. Use SUB with an immediate value of 1 to perform a decrement that
+affects carry.
+
+
+3.2.2  Comparison and Sign Change Instruction
+
+CMP (Compare) subtracts the source operand from the destination operand. It
+updates OF, SF, ZF, AF, PF, and CF but does not alter the source and
+destination operands. A subsequent Jcc or SETcc instruction can test the
+appropriate flags.
+
+NEG (Negate) subtracts a signed integer operand from zero. The effect of
+NEG is to reverse the sign of the operand from positive to negative or from
+negative to positive.
+
+
+3.2.3  Multiplication Instructions
+
+The 80386 has separate multiply instructions for unsigned and signed
+operands. MUL operates on unsigned numbers, while IMUL operates on signed
+integers as well as unsigned.
+
+MUL (Unsigned Integer Multiply) performs an unsigned multiplication of the
+source operand and the accumulator. If the source is a byte, the processor
+multiplies it by the contents of AL and returns the double-length result to
+AH and AL. If the source operand is a word, the processor multiplies it by
+the contents of AX and returns the double-length result to DX and AX. If the
+source operand is a doubleword, the processor multiplies it by the contents
+of EAX and returns the 64-bit result in EDX and EAX. MUL sets CF and OF
+when the upper half of the result is nonzero; otherwise, they are cleared.
+
+IMUL (Signed Integer Multiply) performs a signed multiplication operation.
+IMUL has three variations:
+
+  1.  A one-operand form. The operand may be a byte, word, or doubleword
+      located in memory or in a general register. This instruction uses EAX
+      and EDX as implicit operands in the same way as the MUL instruction.
+
+  2.  A two-operand form. One of the source operands may be in any general
+      register while the other may be either in memory or in a general
+      register. The product replaces the general-register operand.
+
+  3.  A three-operand form; two are source and one is the destination
+      operand. One of the source operands is an immediate value stored in
+      the instruction; the second may be in memory or in any general
+      register. The product may be stored in any general register. The
+      immediate operand is treated as signed. If the immediate operand is a
+      byte, the processor automatically sign-extends it to the size of the
+      second operand before performing the multiplication.
+
+The three forms are similar in most respects:
+
+  ■  The length of the product is calculated to twice the length of the
+     operands.
+
+  ■  The CF and OF flags are set when significant bits are carried into the
+     high-order half of the result. CF and OF are cleared when the
+     high-order half of the result is the sign-extension of the low-order
+     half.
+
+However, forms 2 and 3 differ in that the product is truncated to the
+length of the operands before it is stored in the destination register.
+Because of this truncation, OF should be tested to ensure that no
+significant bits are lost. (For ways to test OF, refer to the INTO and PUSHF
+instructions.)
+
+Forms 2 and 3 of IMUL may also be used with unsigned operands because,
+whether the operands are signed or unsigned, the low-order half of the
+product is the same.
+
+
+3.2.4  Division Instructions
+
+The 80386 has separate division instructions for unsigned and signed
+operands. DIV operates on unsigned numbers, while IDIV operates on signed
+integers as well as unsigned. In either case, an exception (interrupt zero)
+occurs if the divisor is zero or if the quotient is too large for AL, AX, or
+EAX.
+
+DIV (Unsigned Integer Divide) performs an unsigned division of the
+accumulator by the source operand. The dividend (the accumulator) is twice
+the size of the divisor (the source operand); the quotient and remainder
+have the same size as the divisor, as the following table shows.
+
+Size of Source Operand
+      (divisor)             Dividend       Quotient      Remainder
+
+Byte                        AX             AL            AH
+Word                        DX:AX          AX            DX
+Doubleword                  EDX:EAX        EAX           EDX
+
+Non-integral quotients are truncated to integers toward 0. The remainder is
+always less than the divisor. For unsigned byte division, the largest
+quotient is 255. For unsigned word division, the largest quotient is 65,535.
+For unsigned doubleword division the largest quotient is 2^(32) -1.
+
+IDIV (Signed Integer Divide) performs a signed division of the accumulator
+by the source operand. IDIV uses the same registers as the DIV instruction.
+
+For signed byte division, the maximum positive quotient is +127, and the
+minimum negative quotient is -128. For signed word division, the maximum
+positive quotient is +32,767, and the minimum negative quotient is -32,768.
+For signed doubleword division the maximum positive quotient is 2^(31) -1,
+the minimum negative quotient is -2^(31). Non-integral results are truncated
+towards 0. The remainder always has the same sign as the dividend and is
+less than the divisor in magnitude.
+
+
+3.3  Decimal Arithmetic Instructions
+
+Decimal arithmetic is performed by combining the binary arithmetic
+instructions (already discussed in the prior section) with the decimal
+arithmetic instructions. The decimal arithmetic instructions are used in one
+of the following ways:
+
+  ■  To adjust the results of a previous binary arithmetic operation to
+     produce a valid packed or unpacked decimal result.
+
+  ■  To adjust the inputs to a subsequent binary arithmetic operation so
+     that the operation will produce a valid packed or unpacked decimal
+     result.
+
+These instructions operate only on the AL or AH registers. Most utilize the
+AF flag.
+
+
+3.3.1  Packed BCD Adjustment Instructions
+
+DAA (Decimal Adjust after Addition) adjusts the result of adding two valid
+packed decimal operands in AL. DAA must always follow the addition of two
+pairs of packed decimal numbers (one digit in each half-byte) to obtain a
+pair of valid packed decimal digits as results. The carry flag is set if
+carry was needed.
+
+DAS (Decimal Adjust after Subtraction) adjusts the result of subtracting
+two valid packed decimal operands in AL. DAS must always follow the
+subtraction of one pair of packed decimal numbers (one digit in each half-
+byte) from another to obtain a pair of valid packed decimal digits as
+results. The carry flag is set if a borrow was needed.
+
+
+3.3.2  Unpacked BCD Adjustment Instructions
+
+AAA (ASCII Adjust after Addition) changes the contents of register AL to a
+valid unpacked decimal number, and zeros the top 4 bits. AAA must always
+follow the addition of two unpacked decimal operands in AL. The carry flag
+is set and AH is incremented if a carry is necessary.
+
+AAS (ASCII Adjust after Subtraction) changes the contents of register AL to
+a valid unpacked decimal number, and zeros the top 4 bits. AAS must always
+follow the subtraction of one unpacked decimal operand from another in AL.
+The carry flag is set and AH decremented if a borrow is necessary.
+
+AAM (ASCII Adjust after Multiplication) corrects the result of a
+multiplication of two valid unpacked decimal numbers. AAM must always follow
+the multiplication of two decimal numbers to produce a valid decimal result.
+The high order digit is left in AH, the low order digit in AL.
+
+AAD (ASCII Adjust before Division) modifies the numerator in AH and AL to
+prepare for the division of two valid unpacked decimal operands so that the
+quotient produced by the division will be a valid unpacked decimal number.
+AH should contain the high-order digit and AL the low-order digit. This
+instruction adjusts the value and places the result in AL. AH will contain
+zero.
+
+
+3.4  Logical Instructions
+
+The group of logical instructions includes:
+
+  ■  The Boolean operation instructions
+  ■  Bit test and modify instructions
+  ■  Bit scan instructions
+  ■  Rotate and shift instructions
+  ■  Byte set on condition
+
+
+3.4.1  Boolean Operation Instructions
+
+The logical operations are AND, OR, XOR, and NOT.
+
+NOT (Not) inverts the bits in the specified operand to form a one's
+complement of the operand. The NOT instruction is a unary operation that
+uses a single operand in a register or memory. NOT has no effect on the
+flags.
+
+The AND, OR, and XOR instructions perform the standard logical operations
+"and", "(inclusive) or", and "exclusive or". These instructions can use the
+following combinations of operands:
+
+  ■  Two register operands
+
+  ■  A general register operand with a memory operand
+
+  ■  An immediate operand with either a general register operand or a
+     memory operand.
+
+AND, OR, and XOR clear OF and CF, leave AF undefined, and update SF, ZF,
+and PF.
+
+
+3.4.2  Bit Test and Modify Instructions
+
+This group of instructions operates on a single bit which can be in memory
+or in a general register. The location of the bit is specified as an offset
+from the low-order end of the operand. The value of the offset either may be
+given by an immediate byte in the instruction or may be contained in a
+general register.
+
+These instructions first assign the value of the selected bit to CF, the
+carry flag. Then a new value is assigned to the selected bit, as determined
+by the operation. OF, SF, ZF, AF, PF are left in an undefined state. Table
+3-1 defines these instructions.
+
+
+Table 3-1. Bit Test and Modify Instructions
+
+Instruction                      Effect on CF            Effect on
+                                                         Selected Bit
+
+Bit (Bit Test)                   CF  BIT                (none)
+BTS (Bit Test and Set)           CF  BIT                BIT  1
+BTR (Bit Test and Reset)         CF  BIT                BIT  0
+BTC (Bit Test and Complement)    CF  BIT                BIT  NOT(BIT)
+
+
+3.4.3  Bit Scan Instructions
+
+These instructions scan a word or doubleword for a one-bit and store the
+index of the first set bit into a register.  The bit string being scanned
+may be either in a register or in memory. The ZF flag is set if the entire
+word is zero (no set bits are found); ZF is cleared if a one-bit is found.
+If no set bit is found, the value of the destination register is undefined.
+
+BSF (Bit Scan Forward) scans from low-order to high-order (starting from
+bit index zero).
+
+BSR (Bit Scan Reverse) scans from high-order to low-order (starting from
+bit index 15 of a word or index 31 of a doubleword).
+
+
+3.4.4  Shift and Rotate Instructions
+
+The shift and rotate instructions reposition the bits within the specified
+operand.
+
+These instructions fall into the following classes:
+
+  ■  Shift instructions
+  ■  Double shift instructions
+  ■  Rotate instructions
+
+
+3.4.4.1  Shift Instructions
+
+The bits in bytes, words, and doublewords may be shifted arithmetically or
+logically. Depending on the value of a specified count, bits can be shifted
+up to 31 places.
+
+A shift instruction can specify the count in one of three ways. One form of
+shift instruction implicitly specifies the count as a single shift. The
+second form specifies the count as an immediate value. The third form
+specifies the count as the value contained in CL. This last form allows the
+shift count to be a variable that the program supplies during execution.
+Only the low order 5 bits of CL are used.
+
+CF always contains the value of the last bit shifted out of the destination
+operand. In a single-bit shift, OF is set if the value of the high-order
+(sign) bit was changed by the operation. Otherwise, OF is cleared. Following
+a multibit shift, however, the content of OF is always undefined.
+
+The shift instructions provide a convenient way to accomplish division or
+multiplication by binary power. Note however that division of signed numbers
+by shifting right is not the same kind of division performed by the IDIV
+instruction.
+
+SAL (Shift Arithmetic Left) shifts the destination byte, word, or
+doubleword operand left by one or by the number of bits specified in the
+count operand (an immediate value or the value contained in CL). The
+processor shifts zeros in from the right (low-order) side of the operand as
+bits exit from the left (high-order) side. See Figure 3-6.
+
+SHL (Shift Logical Left) is a synonym for SAL (refer to SAL).
+
+SHR (Shift Logical Right) shifts the destination byte, word, or doubleword
+operand right by one or by the number of bits specified in the count operand
+(an immediate value or the value contained in CL). The processor shifts
+zeros in from the left side of the operand as bits exit from the right side.
+See Figure 3-7.
+
+SAR (Shift Arithmetic Right) shifts the destination byte, word, or
+doubleword operand to the right by one or by the number of bits specified in
+the count operand (an immediate value or the value contained in CL). The
+processor preserves the sign of the operand by shifting in zeros on the left
+(high-order) side if the value is positive or by shifting by ones if the
+value is negative. See Figure 3-8.
+
+Even though this instruction can be used to divide integers by a power of
+two, the type of division is not the same as that produced by the IDIV
+instruction. The quotient of IDIV is rounded toward zero, whereas the
+"quotient" of SAR is rounded toward negative infinity. This difference is
+apparent only for negative numbers. For example, when IDIV is used to divide
+-9 by 4, the result is -2 with a remainder of -1. If SAR is used to shift
+-9 right by two bits, the result is -3. The "remainder" of this kind of
+division is +3; however, the SAR instruction stores only the high-order bit
+of the remainder (in CF).
+
+The code sequence in Figure 3-9 produces the same result as IDIV for any M
+= 2^(N), where 0 < N < 32. This sequence takes about 12 to 18 clocks,
+depending on whether the jump is taken; if ECX contains M, the corresponding
+IDIV ECX instruction will take about 43 clocks.
+
+
+Figure 3-6.  SAL and SHL
+
+                     OF   CF                OPERAND
+
+       BEFORE SHL    X    X     10001000100010001000100010001111
+       OR SAL
+
+       AFTER SHL     1    1 ── 00010001000100010001000100011110 ── 0
+       OR SAL BY 1
+
+       AFTER SHL     X    0 ── 00100010001000100011110000000000 ── 0
+       OR SAL BY 10
+
+SHL (WHICH HAS THE SYNONYM SAL) SHIFTS THE BITS IN THE REGISTER OR MEMORY
+OPERAND TO THE LEFT BY THE SPECIFIED NUMBER OF BIT POSITIONS. CF RECEIVES
+THE LAST BIT SHIFTED OUT OF THE LEFT OF THE OPERAND. SHL SHIFTS IN ZEROS
+TO FILL THE VACATED BIT LOCATIONS. THESE INSTRUCTIONS OPERATE ON BYTE,
+WORD, AND DOUBLEWORD OPERANDS.
+
+
+Figure 3-7.  SHR
+
+                                      OPERAND                  CF
+
+       BEFORE SHR         10001000100010001000100010001111     X
+
+       AFTER SHR    0────01000100010001000100010001000111────1
+       BY 1
+
+       AFTER SHR    0────00000000001000100010001000100010────O
+       BY 10
+
+SHR SHIFTS THE BITS OF THE REGISTER OR MEMORY OPERAND TO THE RIGHT BY THE
+SPECIFIED NUMBER OF BIT POSITIONS. CF RECEIVES THE LAST BIT SHIFTED OUT OF
+THE RIGHT OF THE OPERAND. SHR SHIFTS IN ZEROS TO FILL THE VACATED BIT
+LOCATIONS.
+
+
+Figure 3-8.  SAR
+
+                                  POSITIVE OPERAND             CF
+
+       BEFORE SAR         01000100010001000100010001000111     X
+
+       AFTER SAR    0────00100010001000100010001000100011────1
+       BY 1
+
+                                  NEGATIVE OPERAND             CF
+
+       BEFORE SAR         11000100010001000100010001000111     X
+
+       AFTER SAR    0────11100010001000100010001000100011────1
+       BY 1
+
+SAR PRESERVES THE SIGN OF THE REGISTER OR MEMORY OPERAND AS IT SHIFTS THE
+OPERAND TO THE RIGHT BY THE SPECIFIED NUMBER OF BIT POSITIONS. CF RECIEVES
+THE LAST BIT SHIFTED OUT OF THE RIGHT OF THE OPERAND.
+
+
+Figure 3-9.  Using SAR to Simulate IDIV
+
+    ; assuming N is in ECX, and the dividend is in EAX
+    ;                                               CLOCKS
+    CMP     EAX, 0      ; to set sign flag          2
+    JGE     NoAdjust    ; jump if sign is zero      3 or 9
+    ADD     EAX, ECX    ;                           2
+    DEC     EAX         ; EAX := EAX + (N-1)        2
+NoAdjust:
+    SAR     EAX, CL     ;                           3
+    ;                       TOTAL CLOCKS           12 or 18]
+
+
+3.4.4.2  Double-Shift Instructions
+
+These instructions provide the basic operations needed to implement
+operations on long unaligned bit strings. The double shifts operate either
+on word or doubleword operands, as follows:
+
+  1.  Taking two word operands as input and producing a one-word output.
+
+  2.  Taking two doubleword operands as input and producing a doubleword
+      output.
+
+Of the two input operands, one may either be in a general register or in
+memory, while the other may only be in a general register. The results
+replace the memory or register operand. The number of bits to be shifted is
+specified either in the CL register or in an immediate byte of the
+instruction.
+
+Bits are shifted from the register operand into the memory or register
+operand. CF is set to the value of the last bit shifted out of the
+destination operand. SF, ZF, and PF are set according to the value of the
+result. OF and AF are left undefined.
+
+SHLD (Shift Left Double) shifts bits of the R/M field to the left, while
+shifting high-order bits from the Reg field into the R/M field on the right
+(see Figure 3-10). The result is stored back into the R/M operand. The Reg
+field is not modified.
+
+SHRD (Shift Right Double) shifts bits of the R/M field to the right, while
+shifting low-order bits from the Reg field into the R/M field on the left
+(see Figure 3-11). The result is stored back into the R/M operand. The Reg
+field is not modified.
+
+
+3.4.4.3  Rotate Instructions
+
+Rotate instructions allow bits in bytes, words, and doublewords to be
+rotated. Bits rotated out of an operand are not lost as in a shift, but are
+"circled" back into the other "end" of the operand.
+
+Rotates affect only the carry and overflow flags. CF may act as an
+extension of the operand in two of the rotate instructions, allowing a bit
+to be isolated and then tested by a conditional jump instruction (JC or
+JNC). CF always contains the value of the last bit rotated out, even if the
+instruction does not use this bit as an extension of the rotated operand.
+
+In single-bit rotates, OF is set if the operation changes the high-order
+(sign) bit of the destination operand. If the sign bit retains its original
+value, OF is cleared. On multibit rotates, the value of OF is always
+undefined.
+
+ROL (Rotate Left) rotates the byte, word, or doubleword destination operand
+left by one or by the number of bits specified in the count operand (an
+immediate value or the value contained in CL). For each rotation specified,
+the high-order bit that exits from the left of the operand returns at the
+right to become the new low-order bit of the operand. See Figure 3-12.
+
+ROR (Rotate Right) rotates the byte, word, or doubleword destination
+operand right by one or by the number of bits specified in the count operand
+(an immediate value or the value contained in CL). For each rotation
+specified, the low-order bit that exits from the right of the operand
+returns at the left to become the new high-order bit of the operand.
+See Figure 3-13.
+
+RCL (Rotate Through Carry Left) rotates bits in the byte, word, or
+doubleword destination operand left by one or by the number of bits
+specified in the count operand (an immediate value or the value contained in
+CL).
+
+This instruction differs from ROL in that it treats CF as a high-order
+one-bit extension of the destination operand. Each high-order bit that exits
+from the left side of the operand moves to CF before it returns to the
+operand as the low-order bit on the next rotation cycle. See Figure 3-14.
+
+RCR (Rotate Through Carry Right) rotates bits in the byte, word, or
+doubleword destination operand right by one or by the number of bits
+specified in the count operand (an immediate value or the value contained in
+CL).
+
+This instruction differs from ROR in that it treats CF as a low-order
+one-bit extension of the destination operand. Each low-order bit that exits
+from the right side of the operand moves to CF before it returns to the
+operand as the high-order bit on the next rotation cycle. See Figure 3-15.
+
+
+Figure 3-10.  Shift Left Double
+
+                  31                   DESTINATION                 0
+    ╔════╗       ╔══════════════════════════════════════════════════╗
+    ║ CF ║──────╢                 MEMORY OF REGISTER               ║───┐
+    ╚════╝       ╚══════════════════════════════════════════════════╝    │
+             ┌───────────────────────────────────────────────────────────┘
+             │    31                     SOURCE                    0
+             │   ╔══════════════════════════════════════════════════╗
+             └───╢                      REGISTER                    ║
+                 ╚══════════════════════════════════════════════════╝
+
+
+Figure 3-11.  Shift Right Double
+
+        31                     SOURCE                    0
+       ╔══════════════════════════════════════════════════╗
+       ║                      REGISTER                    ╟───┐
+       ╚══════════════════════════════════════════════════╝   │
+   ┌──────────────────────────────────────────────────────────┘
+   │    31                   DESTINATION                 0
+   │   ╔══════════════════════════════════════════════════╗        ╔════╗
+   └──║                 MEMORY OF REGISTER               ╟───────║ CF ║
+       ╚══════════════════════════════════════════════════╝        ╚════╝
+
+
+Figure 3-12.  ROL
+
+                  31                   DESTINATION                 0
+    ╔════╗       ╔══════════════════════════════════════════════════╗
+    ║ CF ║───┬──╢                 MEMORY OF REGISTER               ║──┐
+    ╚════╝    │  ╚══════════════════════════════════════════════════╝   │
+              └─────────────────────────────────────────────────────────┘
+
+
+Figure 3-13.  ROR
+
+     ┌──────────────────────────────────────────────────────────┐
+     │    31                   DESTINATION                 0    │
+     │   ╔══════════════════════════════════════════════════╗   │    ╔════╗
+     └──║                 MEMORY OF REGISTER               ╟───┴───║ CF ║
+         ╚══════════════════════════════════════════════════╝        ╚════╝
+
+
+Figure 3-14.  RCL
+
+                  31                   DESTINATION                 0
