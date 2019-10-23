@@ -29,11 +29,5 @@
     <Text Include="386intel.txt">
       <Filter>Resource Files</Filter>
     </Text>
-    <Text Include="converted386.txt">
-      <Filter>Resource Files</Filter>
-    </Text>
-    <Text Include="file.txt">
-      <Filter>Resource Files</Filter>
-    </Text>
   </ItemGroup>
 </Project>

@@ -1,5 +1,3 @@
-// Unicode UTF-8 version 1.cpp : This file contains the 'main' function. Program execution begins and ends there.
-//Program takes decimal, converts to unicode number, utf code and a symbol (if not shown on screen then you can see in txt file)
 #include <fstream>
 #include <iostream>
 #include <vector>
@@ -16,7 +14,7 @@
 #define UNICODE
 #define _UNICODE
 using namespace std;
-class converter 
+class converter
 {
 private:
 	int dec;
@@ -37,6 +35,8 @@ public:
 		dec = a;
 		decimal = dec;
 		bytes = {};
+		binary = "";
+		hex = "";
 	}
 	void decToBinary()
 	{
@@ -208,9 +208,9 @@ public:
 };
 int main()
 {
-	cout << "1)Program takes decimal number and converts to unicode, utf values. Symbol can be seen in symbol.txt file"<<endl;
+	cout << "1)Program takes decimal number and converts to unicode, utf values. Symbol can be seen in symbol.txt file" << endl;
 	cout << endl;
-	cout << "2)Program takes txt file and converts it using cp437 table. Converted file is named convertedfile.txt" << endl;
+	cout << "2)Program takes 386intel.txt and converts it using cp437 table. Converted file is named intelconverted.txt" << endl;
 	cout << endl;
 	//stringstream str;
 	vector <string> utf;
@@ -256,10 +256,10 @@ int main()
 	df << symbol;
 	cout << endl;
 	cout << "If there is no symbol, open symbol.txt" << endl;
-
+	cout << "Please wait for program to complete conversion...";
 
 	///////////////////////////////Part2 bellow ///////////////////////////////////////////
-	wstring line;
+	string line;
 	map<int, string> table;
 	int input_table_dec;
 	string input_table_hex;
@@ -272,11 +272,11 @@ int main()
 	}
 	map<int, string>::iterator itr;
 
-	//Using smaller version of 386intel file for faster execution. Use wifstream myfile(L"386intel.txt") for full conversion
-	wifstream myfile(L"file.txt");
-	wofstream dfresult(L"convertedfile.txt");
+	ifstream myfile("386intel.txt");
+	ofstream dfresult("intelconverted.txt");
 	if (myfile)
 	{
+		setlocale(LC_ALL, "C");
 		string hexadecimal;
 		int rastas(0);
 		int spausdinti(1);
@@ -288,7 +288,7 @@ int main()
 			spausdinti = 1;;
 			for (int i = 0; i < line.length(); i++)
 			{
-				vector <string> utf_file;
+
 				sim_from_text = line[i];
 				int symbol_value = int(sim_from_text);
 				//cout << "numFromStringElement:" << symbol_value << endl;
@@ -305,16 +305,20 @@ int main()
 					}
 					if (rastas)
 					{
+						vector <string> utf_file;
 						int decimal_converted = stoi(hexadecimal, 0, 16);
-						//cout << "New sim value: " << decimal_converted << endl;
 						change_simbol.fillDec(decimal_converted);
 						change_simbol.decToBinary();
 						shex = change_simbol.getHex();
 						change_simbol.getBinUtf();
 						change_simbol.getUtf(utf_file);
-						wchar_t output = strtol(hexadecimal.c_str(), NULL, 16);
-						dfresult.imbue(utf8_locale);
-						dfresult << output;
+						unsigned char get_sim[4] = { "" };
+						for (int y = 0; y < utf_file.size(); y++)
+						{
+							get_sim[y] = stoi(utf_file[y], 0, 16);
+						}
+						for (int x = 0; x < utf_file.size(); x++)
+							dfresult << get_sim[x];
 					}
 					rastas = 0;
 				}
